@@ -20,5 +20,6 @@ import firstapp
 urlpatterns = [
     path('admin/', admin.site.urls), 
     path('hello/', include('firstapp.urls')),
-    path('', include('firstapp.urls')) 
+    path('', include('firstapp.urls')),
+    path('add/', include('firstapp.urls')) 
 ]

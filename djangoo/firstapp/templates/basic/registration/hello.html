@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'firstapp/style.css' %}">
+    
+        <title>HELLO {{ name }}</title>
+    </head>
+
+    <body>
+        <ul>
+            {% for number in numbers %}
+            <li>{{ number }}</li>
+            {% endfor %}
+        </ul>
+        <form method="post" action="add/">{% csrf_token %}
+
+            <label for="fname">First name</label> <input type="text" id="fname" name="fname"> <br>
+            <label for="lname">Last name</label> <input type="text" id="lname" name="lname"> <br>
+            <input type="submit" value="Submit">
+            
+        </form>
+    </body>
+
+
+
+</html>
