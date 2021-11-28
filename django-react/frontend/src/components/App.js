@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import CreateUser from "./CreateUser";
+import  HomePage from "./HomePage";
 
 class App extends Component {
   constructor(props) {
@@ -11,40 +13,35 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    fetch("api/lead")
-      .then(response => {
-        if (response.status > 400) {
-          return this.setState(() => {
-            return { placeholder: "Something went wrong!" };
-          });
-        }
-        return response.json();
-      })
-      .then(data => {
-        this.setState(() => {
-          return {
-            data,
-            loaded: true
-          };
-        });
-      });
-  }
+ // componentDidMount() {
+  //  fetch("api/lead")
+   //   .then(response => {
+     //   if (response.status > 400) {
+       //   return this.setState(() => {
+        //    return { placeholder: "Something went wrong!" };
+         // });
+       // }
+       // return response.json();
+      //})
+      //.then(data => {
+       // this.setState(() => {
+        //  return {
+          //  data,
+           // loaded: true
+          //};
+        //});
+      //});
+  //}
 
   render() {
     return (
-      <ul>
-        {this.state.data.map(contact => {
-          return (
-            <li key={contact.id}>
-              {contact.name} - {contact.email}
-            </li>
-          );
-        })}
-      </ul>
-    );
+      <HomePage/>
+    )
   }
 }
+
+
+
 
 export default App;
 
