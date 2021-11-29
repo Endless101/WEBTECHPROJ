@@ -14,7 +14,7 @@ export default class HomePage extends Component {
     render(){
         return (<BrowserRouter>
             <Routes>
-                <Route exact path="/create" component={CreateUser}></Route>
+                <Route exact path="/create" component={CreateUser}/>
             </Routes>
         </BrowserRouter>
         )

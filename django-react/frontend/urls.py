@@ -5,5 +5,4 @@ from . import views
 urlpatterns = [
     path('', views.index ),
     path('create', views.index),
-    path('createuser/add/', views.add)
 ]

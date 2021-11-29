@@ -35,7 +35,9 @@ class App extends Component {
 
   render() {
     return (
-      <HomePage/>
+      <div>
+      <CreateUser />
+      </div>
     )
   }
 }
