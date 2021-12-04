@@ -1,5 +1,7 @@
 import React, {Component} from "react"
 import {render} from "react-dom"
+import CreateUser from "./CreateUser";
+import GoogleLogin from "./GoogleLogin";
 
 export default class App extends Component {
     constructor(props) {
@@ -7,7 +9,7 @@ export default class App extends Component {
     }
 
     render() {
-        return (<h1> Testing React Code</h1>);
+        return (<GoogleLogin />);
     }
 }
 
