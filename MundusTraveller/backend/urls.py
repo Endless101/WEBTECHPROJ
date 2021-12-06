@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import main
+from backend import views
 
 urlpatterns = [
-    path('home/', main)
+    path('home/', views.main),
+    path('add/', views.postCreateUserModel),
+    path('succes/', views.main)
 ]
