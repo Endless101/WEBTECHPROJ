@@ -1,6 +1,8 @@
 import React, {Component} from "react"
 import {render} from "react-dom"
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom"
+import CreateUser from "./CreateUser"
+import GoogleLogin from "./GoogleLogin"
 import ProfilePage from "./ProfilePage"
 
 export default class App extends Component {
@@ -16,6 +18,8 @@ export default class App extends Component {
                     <p>This is the home page</p>
                 </Route>
                 <Route path="/profile" component={ProfilePage} />
+                <Route path="/register" component={CreateUser} />
+                <Route path="/google" component={GoogleLogin} />
             </Switch>
         </Router>);
     }
