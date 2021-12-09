@@ -4,5 +4,6 @@ from backend import views
 urlpatterns = [
     path('home/', views.main),
     path('add/', views.postCreateUserModel),
-    path('succes/', views.main)
+    path('succes/', views.main),
+    path('login', views.postLogin)
 ]

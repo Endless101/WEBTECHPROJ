@@ -1,13 +1,15 @@
 #from _typeshed import Self
+from django.db.models.fields import EmailField
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework import generics, serializers, status
-from .serializers import CreateUserSerializer
+from .serializers import CreateUserSerializer, LoginSerializer
 from .models import CreateUserModel
 from rest_framework.views import APIView
 from django.http import HttpResponseRedirect
 from rest_framework.response import Response
+from django.core.exceptions import ObjectDoesNotExist
 
 # Create your views here.
 
@@ -48,3 +50,30 @@ def postCreateUserModel(request):
            createuser = CreateUserModel(firstname=firstname, lastname=lastname,password=password,email=email, DOB=DOB)
            createuser.save()
            return HttpResponseRedirect('../succes/')
+
+
+
+def postLogin(request):
+    serializer_class = LoginSerializer
+    serializer = serializer_class(data=request.POST)
+    if not request.session.exists(request.session.session_key):
+        request.session.create()
+    
+    if serializer.is_valid():
+        print("efzefz")
+        postemail = serializer.data['email']
+        postpassword = serializer.data['password']
+        try:
+            obj = CreateUserModel.objects.get(email=postemail)
+        except ObjectDoesNotExist:
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        objpassword = obj.password
+        print('\n')
+        print(postpassword)
+        print('\n')
+        print('\n')
+        print(objpassword)
+        print('\n')
+        if(postpassword == objpassword):
+            return HttpResponseRedirect('./succes/')
+        else: return print("efzefz")
