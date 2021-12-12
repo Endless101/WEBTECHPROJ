@@ -16,7 +16,7 @@ export default class GoogleLogin extends Component {
       
 
     render() {
-        return(<div class="g-signin2" data-onsuccess="onSignIn"></div>
+        return(<div className="g-signin2" data-onsuccess="onSignIn"></div>
         )
     }
 }
