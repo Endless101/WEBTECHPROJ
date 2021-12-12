@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-ro
 import CreateUser from "./CreateUser"
 import GoogleLogin from "./GoogleLogin"
 import ProfilePage from "./ProfilePage"
+import Login from "./Login"
 
 export default class App extends Component {
     constructor(props) {

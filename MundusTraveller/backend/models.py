@@ -8,3 +8,9 @@ class CreateUserModel(models.Model):
     confirmPassword = models.CharField(max_length=200)
     email = models.EmailField(default=None)
     DOB = models.CharField(max_length=200,default=None)
+
+
+
+class Login(models.Model):
+    email = models.EmailField(default=None)
+    password = models.CharField(max_length=200, default=None)
