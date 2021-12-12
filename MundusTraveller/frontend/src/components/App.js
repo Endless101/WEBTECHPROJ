@@ -7,10 +7,10 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
-import CreateUser from "./CreateUser";
-import GoogleLogin from "./GoogleLogin";
-import ProfilePage from "./ProfilePage";
-import HomePage from "./HomePage";
+import CreateUser from "./pages/CreateUser";
+import GoogleLogin from "./pages/GoogleLogin";
+import ProfilePage from "./pages/ProfilePage";
+import HomePage from "./pages/HomePage";
 
 export default class App extends Component {
   constructor(props) {

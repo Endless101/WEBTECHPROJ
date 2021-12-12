@@ -19,6 +19,6 @@ body {
   /* display: flex;*/
 }
 
-#map-container {
-  height: 400px;
+.map-container {
+  height: 800px;
 }
