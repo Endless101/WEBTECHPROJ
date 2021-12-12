@@ -19,6 +19,7 @@ export default class App extends Component {
                     <p>This is the home page</p>
                 </Route>
                 <Route path="/profile" component={ProfilePage} />
+                <Route path="/login"   component={Login}/>
                 <Route path="/register" component={CreateUser} />
                 <Route path="/google" component={GoogleLogin} />
             </Switch>
