@@ -38,19 +38,28 @@ def main(request):
 def postCreateUserModel(request):
     queryset = CreateUserModel.objects.all()
     serializer_class = CreateUserSerializer
-        
     serializer = serializer_class(data=request.POST)
+        
+    
 
     if  serializer.is_valid():
-           firstname = serializer.data['firstname']
-           lastname = serializer.data['lastname']
-           password = serializer.data['password']
-           email = serializer.data['email']
-           DOB = serializer.data['DOB']
-           createuser = CreateUserModel(firstname=firstname, lastname=lastname,password=password,email=email, DOB=DOB)
-           createuser.save()
-           return HttpResponseRedirect('../succes/')
+        firstname = serializer.data['firstname']
+        lastname = serializer.data['lastname']
+        password = serializer.data['password']
+        email = serializer.data['email']
+        DOB = serializer.data['DOB']
+        try: 
+            obj = CreateUserModel.objects.get(email=email)
+        except ObjectDoesNotExist:
+            createuser = CreateUserModel(firstname=firstname, lastname=lastname,password=password,email=email, DOB=DOB)
+            createuser.save()
+        finally:
+             return HttpResponseRedirect('../succes/')
 
+
+
+           
+           
 
 
 def postLogin(request):
