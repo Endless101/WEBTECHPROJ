@@ -1,6 +1,4 @@
-{
-  "type": "CountryCollection",
-  "countries": [
+[
     {
       "timezones": ["America/Aruba"],
       "latlng": [12.5, -69.96666666],
@@ -1904,4 +1902,3 @@
       "capital": "Harare"
     }
   ]
-}

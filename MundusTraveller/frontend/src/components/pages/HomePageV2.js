@@ -1,16 +1,23 @@
 import React, { Component } from "react";
-import Mapbox, { Marker } from "react-map-gl";
-import * as countryData from "../../data/countries.json"
+import { render } from "react-dom";
+import Mapbox, {
+  Marker,
+  Popup,
+  NavigationControl,
+  FullscreenControl,
+} from "react-map-gl";
+import COUNTRIES from "../../data/countries.json";
+import CityPin from "../tools/city-pin";
 
 const MAPBOX_TOKEN =
-"pk.eyJ1IjoicGVhbnV0MjIybGluayIsImEiOiJja3d3bHBhNmcwNHNqMm9sYzJ5OHA2Z2QxIn0.WBRF5d_uHeFJNHW-iYsUxw";
+  "pk.eyJ1IjoicGVhbnV0MjIybGluayIsImEiOiJja3d3bHBhNmcwNHNqMm9sYzJ5OHA2Z2QxIn0.WBRF5d_uHeFJNHW-iYsUxw";
 
 const DEFAULT_VIEWPORT = {
-  width: 800,
-  height: 600,
-  longitude: -122.45,
-  latitude: 37.78,
-  zoom: 3,
+  longitude: 10,
+  latitude: 56,
+  zoom: 3.5,
+  bearing: 0,
+  pitch: 0,
 };
 
 export default class AddMap extends Component {
@@ -18,13 +25,24 @@ export default class AddMap extends Component {
     super(props);
     this.state = {
       viewport: DEFAULT_VIEWPORT,
-      modeId: null,
-      modeHandler: null,
     };
   }
 
   _updateViewport = (viewport) => {
     this.setState({ viewport });
+  };
+
+  _renderCountryMarker = (country) => {
+    console.log(country.country_code)
+    return (
+      <Marker
+        key={country.country_code}
+        latitude={country.latlng[0]}
+        longitude={country.latlng[1]}
+        >
+          <div>MARKER</div>
+        </Marker>
+    );
   };
 
   render() {
@@ -35,9 +53,11 @@ export default class AddMap extends Component {
         width="100%"
         height="100%"
         mapboxApiAccessToken={MAPBOX_TOKEN}
-        mapStyle={"mapbox://styles/mapbox/dark-v9"}
+        mapStyle={"mapbox://styles/mapbox/streets-v11"}
         onViewportChange={this._updateViewport}
-        >
+      >
+        {COUNTRIES.map(this._renderCountryMarker)}
+        
       </Mapbox>
     );
   }
