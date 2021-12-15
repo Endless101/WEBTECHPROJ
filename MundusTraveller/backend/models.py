@@ -14,3 +14,15 @@ class CreateUserModel(models.Model):
 class Login(models.Model):
     email = models.EmailField(default=None)
     password = models.CharField(max_length=200, default=None)
+
+
+class ReviewModel(models.Model):
+    email = models.EmailField(default=None)
+    review = models.CharField(max_length=500)
+    rating = models.CharField(max_length=200)
+    country = models.CharField(max_length=200)
+
+
+class UpdateReviewModel(models.Model):
+    oldContent = models.CharField(max_length=500)
+    newContent = models.CharField(max_length=500)
