@@ -32,14 +32,15 @@ export default class Review extends Component {
                 'Content-type':  'application/x-www-form-urlencoded'
             }
         })
-        document.location.reload(true)
         .then(function (response) {
             console.log(response);
           })
           .catch(function (error) {
             console.log(error);
           });
-          
+          setTimeout(() => {
+            window.location.reload(true) 
+          }, 500)
         }
         
           render() {
