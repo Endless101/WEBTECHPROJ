@@ -7,6 +7,7 @@ import Review from "./Review";
 export default class ReviewList extends Component {
     constructor(props) {
         super(props)
+        this.deleteReview = this.deleteReview.bind(this)
         this.filterReviews = this.filterReviews.bind(this)
         this.dostuff = this.dostuff.bind(this)
         this.handleUpdate = this.handleUpdate.bind(this)
@@ -50,7 +51,7 @@ export default class ReviewList extends Component {
            const params = new URLSearchParams
            params.append('oldContent', oldContent)
            params.append('newContent', newContent)
-           axios.put("http://localhost:8000/backend/update/",{
+           axios.put("http://localhost:8000/backend/post/",{
                "oldContent": oldContent,
                "newContent": newContent
            }, {
@@ -58,10 +59,10 @@ export default class ReviewList extends Component {
                 'Content-type':  'application/json'
             }
         })
-        setTimeout(() => {
+     setTimeout(() => {
             window.location.reload(true) 
           }, 500)
-         //  
+          
         }
         updateButton.type = "submit"
         newEl.defaultValue = oldContent
@@ -99,8 +100,26 @@ export default class ReviewList extends Component {
             console.log(error);
           });
         
+    
          
      };
+
+
+     deleteReview(event) {
+        const review = event.target.parentNode.textContent
+        axios.delete("http://localhost:8000/backend/post/", {
+           data:  {
+            review:review
+        }
+    },
+        {
+            headers: {
+                'Content-type':  'application/json'
+
+            }
+        })
+        event.target.parentNode.remove()
+    }
     filterReviews() {
         var arr = []
         var idx = 0
@@ -136,6 +155,7 @@ export default class ReviewList extends Component {
                         return (
                             <li key={review.id} id={review.id} > {review.propss}
                             <input type="submit" value="Edit" onClick={this.handleUpdate} />
+                            <input id={"delete"+review.id} type="submit" value="Delete" onClick={this.deleteReview}/>
                             </li> 
                         )
                         else return(<li key={review.id} id={review.id} > {review.propss}
