@@ -27,6 +27,7 @@
     "@material-ui/icons": "^4.11.2",
     "axios": "^0.24.0",
     "react-router-dom": "^5.3.0",
+    "react-simple-star-rating": "^4.0.3",
     "save-dev": "^0.0.1-security",
     "webpack-dev-server": "^4.6.0"
   }
