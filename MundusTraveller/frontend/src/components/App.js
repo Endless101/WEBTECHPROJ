@@ -6,7 +6,7 @@ import GoogleLogin from "./GoogleLogin"
 import ProfilePage from "./ProfilePage"
 import Login from "./Login"
 import ReviewList from "./ReviewList"
-
+import Logout from "./Logout"
 export default class App extends Component {
     constructor(props) {
         super(props)
@@ -23,7 +23,8 @@ export default class App extends Component {
                 <Route path="/login"   component={Login}/>
                 <Route path="/register" component={CreateUser} />
                 <Route path="/google" component={GoogleLogin} />
-                <Route path="/review" component={() =><ReviewList keys="Belgium" owner="true" filter="country"/>}/>
+                <Route path="/review" component={() =><ReviewList keys="taoufikcherroud@gmail.com" owner="false" filter="user"/>}/>
+                <Route path="/logout" component={Logout}/>
             </Switch>
         </Router>);
     }
