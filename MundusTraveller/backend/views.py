@@ -4,8 +4,8 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework import generics, serializers, status
-from .serializers import CreateUserSerializer, LoginSerializer, ReviewSerializer, UpdateReviewSerializer
-from .models import CreateUserModel, ReviewModel
+from .serializers import CreateUserSerializer, LikeSerializer, LoginSerializer, ReviewSerializer, UpdateReviewSerializer
+from .models import CreateUserModel, LikeModel, ReviewModel
 from rest_framework.views import APIView
 from django.http import HttpResponseRedirect
 from rest_framework.response import Response
@@ -54,13 +54,14 @@ def postCreateUserModel(request):
     if  serializer.is_valid():
         firstname = serializer.data['firstname']
         lastname = serializer.data['lastname']
+        username = serializer.data['username']
         password = serializer.data['password']
         email = serializer.data['email']
         DOB = serializer.data['DOB']
         try: 
             obj = CreateUserModel.objects.get(email=email)
         except ObjectDoesNotExist:
-            createuser = CreateUserModel(firstname=firstname, lastname=lastname,password=password,email=email, DOB=DOB)
+            createuser = CreateUserModel(firstname=firstname, lastname=lastname,username=username,password=password,email=email, DOB=DOB)
             createuser.save()
         finally:
              return HttpResponseRedirect('../succes/')
@@ -89,7 +90,7 @@ def postLogin(request):
         if(postpassword == objpassword):
             request.session['email'] = postemail
             prettyprint(request.session['email'])
-            return HttpResponseRedirect('./succes/')
+            return HttpResponseRedirect('../logout')
         else: return print("efzefz")
 
 
@@ -118,7 +119,9 @@ def postReview(request):
         for e in data:
             ls['review' + str(idx)] = {'review': e.review,
                                         'email': e.email,
-                                        'country': e.country}
+                                        'country': e.country,
+                                        'rating': e.rating,
+                                        'likes': e.likes}
             idx = idx + 1
         prettyprint(ls)
         data = { 
@@ -161,3 +164,36 @@ def updateReview(request):
             obj.review = newContent
             obj.save()
 
+
+def handleLogout(request):
+    if request.method == 'GET':
+        if request.session.exists(request.session.session_key):
+            prettyprint(request.session.exists(request.session.session_key))
+           # del request.session['email']
+            request.session.delete()
+            prettyprint(request.session.exists(request.session.session_key))
+            return HttpResponse(status=200)
+
+
+
+def handleLikes(request):
+    serializer_class = LikeSerializer
+    if request.method == 'POST':
+        data= eval(request.body)
+        serializer = serializer_class(data=data)
+        if serializer.is_valid():
+            prettyprint(serializer.data)
+            currUser = request.session['email']
+            writer = serializer.data['writer']
+            review = serializer.data['review']
+            def amountOfLikes(): return len(LikeModel.objects.filter(liker=currUser,writer=writer,review=review))
+           # amount_of_likes = len(obj())
+            if(amountOfLikes() == 0):
+                Like = LikeModel(liker=currUser,writer=writer,review=review)
+                Like.save()
+                review_model = ReviewModel.objects.get(review=review)
+                review_model.likes =  review_model.likes + amountOfLikes()
+                review_model.save()
+                return HttpResponse(status=200)
+            else: return HttpResponse(status=304)
+            
