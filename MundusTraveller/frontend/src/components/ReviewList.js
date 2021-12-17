@@ -7,6 +7,7 @@ import Review from "./Review";
 export default class ReviewList extends Component {
     constructor(props) {
         super(props)
+        this.handleLike = this.handleLike.bind(this)
         this.deleteReview = this.deleteReview.bind(this)
         this.filterReviews = this.filterReviews.bind(this)
         this.dostuff = this.dostuff.bind(this)
@@ -35,6 +36,9 @@ export default class ReviewList extends Component {
         console.log("hehe")
     }
     
+    handleLike(){
+        console.log("hehe")
+    }
 
     handleUpdate(event) {
         const id = event.target.parentNode.id
@@ -130,11 +134,15 @@ export default class ReviewList extends Component {
             if(filter == "country") {
                 if(key == this.state.data[propss].country )
                 arr.push({propss: this.state.data[propss].review,
+                    user: this.state.data[propss].email,
+                    likes:this.state.data[propss].likes,
                     id: idx})
             }
             else if(filter == "user") {
                 if(key == this.state.data[propss].email)
                 arr.push({propss: this.state.data[propss].review,
+                    user: this.state.data[propss].email,
+                    likes:this.state.data[propss].likes,
                     id: idx})
             }
             idx = idx + 1
@@ -153,13 +161,33 @@ export default class ReviewList extends Component {
                     {arr.map( review => {
                         if(this.props.owner == "true")
                         return (
-                            <li key={review.id} id={review.id} > {review.propss}
+                            <li key={review.id} id={review.id} > {review.user}: {review.propss}
                             <input type="submit" value="Edit" onClick={this.handleUpdate} />
                             <input id={"delete"+review.id} type="submit" value="Delete" onClick={this.deleteReview}/>
                             </li> 
                         )
-                        else return(<li key={review.id} id={review.id} > {review.propss}
-                            </li> )
+                        else return(<li key={review.id} id={review.id} >{review.user}: {review.propss}
+                           <label> Amount of Likes: {review.likes} <button onClick={() => {
+                               axios.post("http://localhost:8000/backend/likes/", {
+                                    writer: review.user,
+                                    review: review.propss
+                               },
+                               {
+                                   headers: {
+                                    'Content-type':  'application/json'
+                                   }
+                               })
+                               .then(res=> {
+                                   if(res.status == "200") {
+                                       window.location.reload()
+                                   }
+                               })
+                               .catch(err => {
+                                   if(err.status == "304")
+                                   console.log("You already liked that")
+                               })
+                            }
+                        }>Like!</button></label> </li> )
                     })}
                 </ul>
             <Review id="Review" text="Enter your review here"/>
