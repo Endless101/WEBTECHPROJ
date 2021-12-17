@@ -32,6 +32,7 @@ render () {
         
         <label>Firstname: <input name="firstname" id="firstname" type="text"></input> </label><br></br>
         <label>Lastname: <input name="lastname" id="lastname" type="text"></input></label><br></br>
+        <label>Username: <input name="username" id="username" type="text"></input></label><br></br>
         <label>Password: <input name="password" id="password" type="password"></input></label><br></br>
         <label>Confirm password: <input name="password" id="password" type="password"></input></label><br></br>
         <label>Email: <input name="email" id="email" type="email"></input></label><br></br>
