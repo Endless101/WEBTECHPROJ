@@ -1,12 +1,12 @@
 from django.db.models import fields
 from rest_framework import serializers
-from .models import CreateUserModel, Login, ReviewModel, UpdateReviewModel
+from .models import CreateUserModel, LikeModel, Login, ReviewModel, UpdateReviewModel
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CreateUserModel
         name = serializers.CharField
-        fields = ('firstname', 'lastname','password','email','DOB',)
+        fields = ('firstname', 'lastname','username','password','email','DOB',)
 
 
 class LoginSerializer(serializers.ModelSerializer):
@@ -26,3 +26,9 @@ class UpdateReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = UpdateReviewModel
         fields = ('oldContent', 'newContent',)
+
+
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = LikeModel
+        fields = ( 'writer','review')
