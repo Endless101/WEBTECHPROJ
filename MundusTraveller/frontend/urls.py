@@ -10,4 +10,5 @@ urlpatterns = [
     path('profile', index),
     path('register', index),
     path('google', index),
+    path('country/<str:key>', index)
 ]
