@@ -10,5 +10,6 @@ urlpatterns = [
     path('profile', index),
     path('register', index),
     path('google', index),
-    path('country/<str:key>', index)
+    path('country/<str:key>', index),
+    path('search', index)
 ]

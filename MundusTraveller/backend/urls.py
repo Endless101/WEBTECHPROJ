@@ -9,5 +9,6 @@ urlpatterns = [
     path('login', views.postLogin),
     path('post/', views.postReview),
     path('logout/',views.handleLogout),
-    path('likes/', views.handleLikes)
+    path('likes/', views.handleLikes),
+    path('search/', views.getUser)
 ]

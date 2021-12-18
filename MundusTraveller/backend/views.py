@@ -196,4 +196,11 @@ def handleLikes(request):
                 review_model.save()
                 return HttpResponse(status=200)
             else: return HttpResponse(status=304)
+
+def getUser(request):
+    data = eval(request.body.decode())
+    user = data['user']
+    object = ReviewModel.objects.filter(username=user)
+    prettyprint(object)
+    return HttpResponse(status=200)
             

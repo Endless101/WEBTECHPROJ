@@ -19,6 +19,7 @@ class Login(models.Model):
 
 class ReviewModel(models.Model):
     email = models.EmailField(default=None)
+    username = models.CharField(max_length=200)
     review = models.CharField(max_length=500)
     rating = models.CharField(max_length=200)
     country = models.CharField(max_length=200)
