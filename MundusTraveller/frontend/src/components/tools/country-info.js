@@ -1,15 +1,16 @@
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 
 export default class CountryInfo extends PureComponent {
   render() {
-    const {info} = this.props;
-    const displayName = `${info.name}`;
+    const {country} = this.props;
+    const displayName = `${country.name}`;
 
     return (
       <div>
         <div>
+          <Typography>
           {displayName} | {" "}
           <a
             target="_blank"
@@ -17,10 +18,13 @@ export default class CountryInfo extends PureComponent {
           >
             Wikipedia
           </a>
-          <Button variant= "contained" color="primary" to={`/country/${displayName}`} component={Link}></Button>
+          </Typography>
+          <Button variant= "contained" color="primary" to={`/country/${displayName}`} component={Link}>
+            Go to Reviews
+          </Button>
           
         </div>
-        ADD POSSIBLE IMAGE HERE
+        <img width={240} src={country.flag} />
       </div>
     );
   }
