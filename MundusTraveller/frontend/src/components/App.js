@@ -1,12 +1,12 @@
 import React, {Component} from "react"
 import {render} from "react-dom"
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom"
-import CreateUser from "./CreateUser"
-import GoogleLogin from "./GoogleLogin"
-import ProfilePage from "./ProfilePage"
-import Login from "./Login"
-import ReviewList from "./ReviewList"
-import Logout from "./Logout"
+import CreateUser from "./pages/CreateUser"
+import GoogleLogin from "./pages/GoogleLogin"
+import ProfilePage from "./pages/ProfilePage"
+import Login from "./pages/Login"
+import ReviewList from "./pages/ReviewList"
+import Logout from "./pages/Logout"
 import HomePage from "./pages/HomePage";
 import CountryPage from "./pages/CountryPage";
 

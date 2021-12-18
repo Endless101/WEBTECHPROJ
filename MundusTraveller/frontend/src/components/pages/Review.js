@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Rating } from 'react-simple-star-rating'
+import { Rating } from "react-simple-star-rating"
 import axios from "axios";
 
 
