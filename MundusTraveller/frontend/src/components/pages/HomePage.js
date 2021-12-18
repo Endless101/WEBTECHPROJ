@@ -1,8 +1,6 @@
-import React, { Component } from "react";
-import Mapbox, {
-  Marker,
-  Popup,
-} from "react-map-gl";
+import React, { Component, useRef } from "react";
+import Mapbox, { Marker, Popup } from "react-map-gl";
+import { Container, Col, Row } from "reactstrap";
 import COUNTRIES from "../../data/countries.json";
 import EUROPECOUNTRIES from "../../data/europe_countries.json";
 import CountryPin from "../tools/country-pin";
@@ -26,11 +24,17 @@ export default class AddMap extends Component {
       viewport: DEFAULT_VIEWPORT,
       popupInfo: null,
     };
-  };
+  }
 
   _updateViewport = (viewport) => {
     this.setState({ viewport });
   };
+
+  _onSelected = (viewport, item) => {
+    this.setState({
+      viewport
+    })
+}
 
   _renderCountryMarker = (country) => {
     return (
@@ -39,7 +43,10 @@ export default class AddMap extends Component {
         latitude={country.latlng[0]}
         longitude={country.latlng[1]}
       >
-        <CountryPin size={20} onClick={() => this.setState({ popupInfo: country })} />
+        <CountryPin
+          size={20}
+          onClick={() => this.setState({ popupInfo: country })}
+        />
       </Marker>
     );
   };
@@ -57,27 +64,27 @@ export default class AddMap extends Component {
           closeOnClick={false}
           onClose={() => this.setState({ popupInfo: null })}
         >
-          <CountryInfo info={popupInfo}/>
+          <CountryInfo info={popupInfo} />
         </Popup>
       )
     );
-  };
+  }
 
   render() {
     const { viewport } = this.state;
 
     return (
-      <Mapbox
-        {...viewport}
-        width="100vw"
-        height="100vh"
-        mapboxApiAccessToken={MAPBOX_TOKEN}
-        mapStyle={"mapbox://styles/mapbox/streets-v11"}
-        onViewportChange={this._updateViewport}
-      >
-        {EUROPECOUNTRIES.map(this._renderCountryMarker)}
-        {this._renderPopup()}
-      </Mapbox>
+        <Mapbox
+          {...viewport}
+          width="100vw"
+          height="100vh"
+          mapboxApiAccessToken={MAPBOX_TOKEN}
+          mapStyle={"mapbox://styles/mapbox/streets-v11"}
+          onViewportChange={this._updateViewport}
+        >
+          {EUROPECOUNTRIES.map(this._renderCountryMarker)}
+          {this._renderPopup()}
+        </Mapbox>
     );
   }
 }

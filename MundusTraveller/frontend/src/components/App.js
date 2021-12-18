@@ -11,6 +11,7 @@ import CreateUser from "./pages/CreateUser";
 import GoogleLogin from "./pages/GoogleLogin";
 import ProfilePage from "./pages/ProfilePage";
 import HomePage from "./pages/HomePage";
+import CountryPage from "./pages/CountryPage";
 
 export default class App extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ export default class App extends Component {
           <Route path="/profile" component={ProfilePage} />
           <Route path="/register" component={CreateUser} />
           <Route path="/google" component={GoogleLogin} />
+          <Route path="/country/:key" component={CountryPage} />
         </Switch>
       </Router>
     );
