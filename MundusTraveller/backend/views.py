@@ -108,6 +108,7 @@ def postCreateUserModel(request):
                  'DOB': DOB,
              }
             return JsonResponse(data)
+    else: return HttpResponseRedirect('HTTP_REFERER')
              
 
 
@@ -124,7 +125,6 @@ def postLogin(request):
     if request.method == 'POST':
         serializer = serializer_class(data=request.POST)
         if serializer.is_valid():
-            print("efzefz")
             postemail = serializer.data['email']
             postpassword = serializer.data['password']
             try:
@@ -140,6 +140,7 @@ def postLogin(request):
                 prettyprint(request.session['email'])
                 return HttpResponseRedirect('../logout')
             else: return HttpResponseRedirect('HTTP_REFERER')
+        else: HttpResponseRedirect('HTTP_REFERER')
     elif request.method == 'GET':
         data = request.GET
         email = data['email']
@@ -200,6 +201,7 @@ def postReview(request):
                 obj.review = newContent
                 obj.save()
                 return HttpResponse(status=200)
+            else: return HttpResponseRedirect('HTTP_REFERER')
     elif request.method == 'DELETE':
         prettyprint(request.method)
 
