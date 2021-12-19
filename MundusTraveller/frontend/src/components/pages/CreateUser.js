@@ -5,39 +5,67 @@ import axios from "axios";
 export default class CreateUser extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            errors: [{}],
+            inputs: [{}]
+        }
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
+
     handleFormSubmit = (event, requestType) => {
-       //event.preventDefault();
-        const name = event.target.elements.name.value;
-        switch ( 'post' ) {
-            case 'post':
-                console.log('ddddddddddddd')
-                axios.post('http://localhost:5555/backend/add', {
-                    name: name
-                },{
-                    headers: {
-                        'content-type': 'raw'
-                    }
-                })
-                .then(res => console.log(res))
-                .catch(err => console.err(error))
-        }
+      event.preventDefault()
+      const params = new URLSearchParams
+      const form = event.target.parentNode.parentNode
+      const firstname = form.elements.firstname.value
+      const lastname = form.elements.lastname.value
+      const username = form.elements.username.value
+      const password = form.elements.password.value
+      const confirmPassword = form.elements.confirmPassword.value
+      const email = form.elements.email.value
+      const DOB = form.elements.DOB.value
+      params.append('firstname', firstname)
+      params.append('lastname', lastname)
+      params.append('username', username)
+      params.append('password', password)
+      params.append('confirmPassword', confirmPassword)
+      params.append('email',email)
+      params.append('DOB',DOB)
+      axios.post("http://localhost:8000/backend/add/", params, {
+          headers: {
+            'Content-type':  'application/x-www-form-urlencoded'
+          }
+      })
+      .then(res => {
+          if(res.status == "200") {
+              console.log(res.data.UserInfo)
+              this.setState({
+                  errors : new Array(res.data.UserInfo.errors),
+                  inputs : new Array(res.data.UserInfo.inputs) 
+              },
+              ()=>console.log(this.state))
+          }
+          else if(res.status == "201") {
+            window.location.replace("http://localhost:8000/login")
+          }
+
+      })
+     
+      
+
     };
 
 
 render () {
-    return (<form /*onSubmitCapture={this.handleFormSubmit}*/ method="post" action="backend/add/" content="raw">
-        
-        <label>Firstname: <input name="firstname" id="firstname" type="text"></input> </label><br></br>
+    return (<form>
+        <label>Firstname: <input name="firstname" id="firstname" type="text"></input></label><br></br>
         <label>Lastname: <input name="lastname" id="lastname" type="text"></input></label><br></br>
-        <label>Username: <input name="username" id="username" type="text"></input></label><br></br>
-        <label>Password: <input name="password" id="password" type="password"></input></label><br></br>
-        <label>Confirm password: <input name="password" id="password" type="password"></input></label><br></br>
-        <label>Email: <input name="email" id="email" type="email"></input></label><br></br>
+        <label>Username: <input name="username" id="username" type="text"></input></label>{this.state.errors[0].username}<br></br>
+        <label>Password: <input name="password" id="password" type="password"></input></label>{this.state.errors[0].password}<br></br>
+        <label>Confirm password: <input name="confirmPassword"  id="confirmPassword" type="password"></input></label>{this.state.errors[0].confirmPassword}<br></br>
+        <label>Email: <input name="email" id="email" type="email"></input></label> {this.state.errors[0].email} <br></br>
         <label>Date of birth: <input name="DOB" id="DOB" type="date"></input></label><br></br>
-        <label>Submit: <input type="submit" value="Submit"></input> </label>
+        <label>Submit: <button type="submit" value="Submit" onClick={this.handleFormSubmit} > Submit</button> </label>
     </form>)
 }
 

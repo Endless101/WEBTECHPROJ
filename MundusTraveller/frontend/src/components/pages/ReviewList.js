@@ -41,12 +41,13 @@ export default class ReviewList extends Component {
     }
 
     handleUpdate(event) {
+        event.target.value
         const id = event.target.parentNode.id
         const el = document.getElementById(id)
-        const oldContent = el.textContent
-        console.log(el.textContent)
+        const oldContent = el.textContent.substring(el.textContent.indexOf(":") + 2, el.textContent.length)
+        console.log(oldContent)
         const div = document.createElement("div")
-        const newEl = document.createElement("input")
+        const newEl = document.createElement("textarea")
         const updateButton = document.createElement("input")
         div.append(newEl,updateButton)
         updateButton.value = "Update"
@@ -110,7 +111,8 @@ export default class ReviewList extends Component {
 
 
      deleteReview(event) {
-        const review = event.target.parentNode.textContent
+        const el = event.target.parentNode
+        const review = el.textContent.substring(el.textContent.indexOf(":") + 1, el.textContent.length)
         axios.delete("http://localhost:8000/backend/post/", {
            data:  {
             review:review

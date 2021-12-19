@@ -34,7 +34,7 @@ export default class AddSearch extends Component {
 
         </input>
         <button onClick={this._getUserFromDatabase}>
-            
+            SEARCH
               </button>
       </div>
     );

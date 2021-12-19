@@ -1,11 +1,11 @@
 #from _typeshed import Self
-from django.db.models.fields import EmailField
+from django.db.models.fields import EmailField, NullBooleanField
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework import generics, serializers, status
-from .serializers import CreateUserSerializer, LikeSerializer, LoginSerializer, ReviewSerializer, UpdateReviewSerializer
-from .models import CreateUserModel, LikeModel, ReviewModel
+from .serializers import CreateUserSerializer, LikeSerializer, LoginSerializer, ReviewSerializer, UpdateReviewSerializer, CountryRatingSerializer
+from .models import CreateUserModel, LikeModel, ReviewModel, CountryRatingModel
 from rest_framework.views import APIView
 from django.http import HttpResponseRedirect
 from rest_framework.response import Response
@@ -44,7 +44,18 @@ def main(request):
            #return HttpResponseRedirect('/succes/')
 
 
+def validEmail(email):
+    Atidx = email.index('@')
+    dotidx = email.index('.')
+    Bool = False 
+    if Atidx != -1 and dotidx != -1 and dotidx > Atidx:
+            Bool = True
+    return Bool
+
 def postCreateUserModel(request):
+    inputs = {}
+    errors = {}
+    prettyprint(request.POST)
     queryset = CreateUserModel.objects.all()
     serializer_class = CreateUserSerializer
     serializer = serializer_class(data=request.POST)
@@ -56,15 +67,52 @@ def postCreateUserModel(request):
         lastname = serializer.data['lastname']
         username = serializer.data['username']
         password = serializer.data['password']
+        confirmPassword = serializer.data['confirmPassword']
         email = serializer.data['email']
         DOB = serializer.data['DOB']
-        try: 
-            obj = CreateUserModel.objects.get(email=email)
-        except ObjectDoesNotExist:
+        inputs['firstname'] = firstname
+        inputs['lastname'] = lastname
+        
+
+        if len(username) < 6:
+            errors['username'] = "Username needs to be atleast 6 characters long"
+
+        if len(password) < 8:
+            errors['password'] = "Password must be atleast 8 characters long"
+
+        if not (password == confirmPassword):
+            errors['confirmPassword'] = "Passwords do not match"
+
+
+        
+        if (len(CreateUserModel.objects.filter(email=email)) != 0):
+            errors['email'] = "This email is already registered"
+
+        
+        if len(errors) != 0:
+            data = {
+                'UserInfo': {
+                    'errors': errors,
+                    'inputs': inputs
+                }
+           }
+            return JsonResponse(data,status=200)
+
+
+        obj = CreateUserModel.objects.filter(email=email)
+        if(len(obj) == 0): 
             createuser = CreateUserModel(firstname=firstname, lastname=lastname,username=username,password=password,email=email, DOB=DOB)
             createuser.save()
-        finally:
-             return HttpResponseRedirect('../succes/')
+            return HttpResponse(status=201)
+        else:
+            data = {
+                 'firstname': firstname,
+                 'lastname': lastname,
+                 'username': username,
+                 'DOB': DOB,
+             }
+            return JsonResponse(data)
+             
 
 
 
@@ -73,26 +121,36 @@ def postCreateUserModel(request):
 
 
 def postLogin(request):
+    errors = {}
     serializer_class = LoginSerializer
-    serializer = serializer_class(data=request.POST)
     if not request.session.exists(request.session.session_key):
         request.session.create()
-    
-    if serializer.is_valid():
-        print("efzefz")
-        postemail = serializer.data['email']
-        postpassword = serializer.data['password']
-        try:
-            obj = CreateUserModel.objects.get(email=postemail)
-        except ObjectDoesNotExist:
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        objpassword = obj.password
-        if(postpassword == objpassword):
-            request.session['email'] = postemail
-            prettyprint(request.session['email'])
-            return HttpResponseRedirect('../logout')
-        else: return print("efzefz")
-
+    if request.method == 'POST':
+        serializer = serializer_class(data=request.POST)
+        if serializer.is_valid():
+            print("efzefz")
+            postemail = serializer.data['email']
+            postpassword = serializer.data['password']
+            try:
+                obj = CreateUserModel.objects.get(email=postemail)
+            except ObjectDoesNotExist:
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            objpassword = obj.password
+            if(postpassword == objpassword):
+                request.session['email'] = postemail
+                prettyprint(request.session['email'])
+                return HttpResponseRedirect('../logout')
+            else: return print("efzefz")
+    elif request.method == 'GET':
+        data = request.GET
+        email = data['email']
+        objs = CreateUserModel.objects.filter(email = email)
+        if len(objs) == 0:
+            errors['email'] = "This email is not registered"
+            return JsonResponse(errors)
+        elif len(objs) == 1:
+            errors['email'] = "This email exists"
+            return JsonResponse(errors)
 
 
 def postReview(request):
@@ -146,7 +204,7 @@ def postReview(request):
         prettyprint(data)
         
         to_be_deleted = data['review']
-        obj = ReviewModel.objects.get(review = to_be_deleted[1:])
+        obj = ReviewModel.objects.get(review = to_be_deleted)
         obj.delete()
         return HttpResponse(status=200)
 
@@ -204,3 +262,46 @@ def getUser(request):
     prettyprint(object)
     return HttpResponse(status=200)
             
+            
+def postAddCountry(request):
+    if request.method == 'POST':
+        session = request.session
+        serializer_class = CountryRatingSerializer
+        serializer = serializer_class(data=request.POST)
+
+        if serializer.is_valid():
+            print("serializer is valid")
+            useremail = session['email']
+            postcountry = serializer.data['countryname']
+            postscore = serializer.data['countryscore']
+            newRating = CountryRatingModel(email=useremail, countryname=postcountry, countryscore=postscore)
+            newRating.save()
+            print("rating added")
+        else: 
+            print("serializer not valid")
+    return HttpResponseRedirect('http://localhost:8000/profile')
+    
+
+def getCountryList(request):
+    session = request.session
+    useremail = session['email']
+    countryList = []
+    countryQueryset = CountryRatingModel.objects.filter(email=useremail)
+    for obj in countryQueryset:
+        countryList.extend([obj.countryname, obj.countryscore])
+    return JsonResponse(countryList, status=status.HTTP_200_OK)
+
+def getUserInfo(request):
+    if request.session.exists(request.session.session_key):
+        session = request.session
+        email = session['email']
+        try:
+            obj = CreateUserModel.objects.get(email=email)
+        except ObjectDoesNotExist:
+            return JsonResponse([], status=status.HTTP_200_OK)
+        firstname = obj.firstname
+        lastname = obj.lastname
+        username = obj.username
+        DOB = obj.DOB
+        userinfo = [firstname, lastname, username, email, DOB]
+        return JsonResponse(userinfo, status=status.HTTP_200_OK)
