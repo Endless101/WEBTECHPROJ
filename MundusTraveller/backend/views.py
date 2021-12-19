@@ -281,10 +281,17 @@ def postAddCountry(request):
             print("serializer not valid")
     return HttpResponseRedirect('http://localhost:8000/profile')
     
+def getUser(user, session):
+    if (user == "self"):
+        return session['email']
+    else: 
+        usermodel= CreateUserModel.objects.get(username=user)
+        return usermodel.email
 
 def getCountryList(request):
+    user = request.GET.get('user')
     session = request.session
-    useremail = session['email']
+    useremail = getUser(user, session)
     countryList = []
     countryQueryset = CountryRatingModel.objects.filter(email=useremail)
     for obj in countryQueryset:
