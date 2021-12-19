@@ -261,7 +261,7 @@ def getUser(request):
     errors = {}
     data = request.GET
     username = data['username']
-    object = ReviewModel.objects.filter(username=username)
+    object = CreateUserModel.objects.filter(username=username)
     if(len(object) != 0):
         return HttpResponse(status=200)
     else:
