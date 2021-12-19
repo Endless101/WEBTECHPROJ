@@ -8,6 +8,7 @@ urlpatterns = [
     path('logout',index),
     path('review', index),
     path('profile', index),
+    path('profile/<str:key>', index),
     path('profile/info', index),
     path('register', index),
     path('google', index),

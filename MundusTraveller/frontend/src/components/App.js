@@ -10,6 +10,7 @@ import ReviewList from "./pages/ReviewList"
 import Logout from "./pages/Logout"
 import HomePage from "./pages/HomePage";
 import CountryPage from "./pages/CountryPage";
+import OtherProfile from "./pages/OtherProfile";
 import SearchBar from "./tools/SearchBar";
 
 export default class App extends Component {
@@ -23,6 +24,7 @@ export default class App extends Component {
             <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/profile/info" component={ProfileInfo} />
+                <Route path="/profile/:user" component={OtherProfile} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/login"   component={Login}/>
                 <Route path="/register" component={CreateUser} />
