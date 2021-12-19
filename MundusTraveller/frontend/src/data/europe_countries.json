@@ -4,6 +4,7 @@
     "latlng": [60.116667, 19.9],
     "name": "\u00c5land Islands",
     "country_code": "AX",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/5/52/Flag_of_%C3%85land.svg",
     "capital": "Mariehamn"
   },
   {
@@ -11,6 +12,7 @@
     "latlng": [41, 20],
     "name": "Albania",
     "country_code": "AL",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/3/36/Flag_of_Albania.svg",
     "capital": "Tirana"
   },
   {
@@ -18,6 +20,7 @@
     "latlng": [42.5, 1.5],
     "name": "Andorra",
     "country_code": "AD",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/1/19/Flag_of_Andorra.svg",
     "capital": "Andorra la Vella"
   },
   {
@@ -25,6 +28,7 @@
     "latlng": [47.33333333, 13.33333333],
     "name": "Austria",
     "country_code": "AT",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_Austria.svg",
     "capital": "Vienna"
   },
   {
@@ -32,6 +36,7 @@
     "latlng": [50.83333333, 4],
     "name": "Belgium",
     "country_code": "BE",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg",
     "capital": "Brussels"
   },
   {
@@ -39,6 +44,7 @@
     "latlng": [43, 25],
     "name": "Bulgaria",
     "country_code": "BG",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Bulgaria.svg",
     "capital": "Sofia"
   },
   {
@@ -46,6 +52,7 @@
     "latlng": [44, 18],
     "name": "Bosnia and Herzegovina",
     "country_code": "BA",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Flag_of_Bosnia_and_Herzegovina.svg",
     "capital": "Sarajevo"
   },
   {
@@ -53,6 +60,7 @@
     "latlng": [53, 28],
     "name": "Belarus",
     "country_code": "BY",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/8/85/Flag_of_Belarus.svg",
     "capital": "Minsk"
   },
   {
@@ -60,6 +68,7 @@
     "latlng": [-54.43333333, 3.4],
     "name": "Bouvet Island",
     "country_code": "BV",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg",
     "capital": null
   },
   {
@@ -67,6 +76,7 @@
     "latlng": [47, 8],
     "name": "Switzerland",
     "country_code": "CH",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Switzerland.svg",
     "capital": "Bern"
   },
   {
@@ -74,6 +84,7 @@
     "latlng": [49.75, 15.5],
     "name": "Czech Republic",
     "country_code": "CZ",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_Czech_Republic.svg",
     "capital": "Prague"
   },
   {
@@ -81,6 +92,7 @@
     "latlng": [51, 9],
     "name": "Germany",
     "country_code": "DE",
+    "flag": "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg",
     "capital": "Berlin"
   },
   {
@@ -88,6 +100,7 @@
     "latlng": [56, 10],
     "name": "Denmark",
     "country_code": "DK",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Denmark.svg",
     "capital": "Copenhagen"
   },
   {
@@ -95,6 +108,7 @@
     "latlng": [40, -4],
     "name": "Spain",
     "country_code": "ES",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/8/89/Bandera_de_Espa%C3%B1a.svg",
     "capital": "Madrid"
   },
   {
@@ -102,6 +116,7 @@
     "latlng": [59, 26],
     "name": "Estonia",
     "country_code": "EE",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Flag_of_Estonia.svg",
     "capital": "Tallinn"
   },
   {
@@ -109,6 +124,7 @@
     "latlng": [64, 26],
     "name": "Finland",
     "country_code": "FI",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_Finland.svg",
     "capital": "Helsinki"
   },
   {
@@ -116,6 +132,7 @@
     "latlng": [46, 2],
     "name": "France",
     "country_code": "FR",
+    "flag": "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg",
     "capital": "Paris"
   },
   {
@@ -123,6 +140,7 @@
     "latlng": [54, -2],
     "name": "United Kingdom",
     "country_code": "GB",
+    "flag": "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg",
     "capital": "London"
   },
   {
@@ -130,6 +148,7 @@
     "latlng": [49.46666666, -2.58333333],
     "name": "Guernsey",
     "country_code": "GG",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_Guernsey.svg",
     "capital": "St. Peter Port"
   },
   {
@@ -137,6 +156,7 @@
     "latlng": [36.13333333, -5.35],
     "name": "Gibraltar",
     "country_code": "GI",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/0/02/Flag_of_Gibraltar.svg",
     "capital": "Gibraltar"
   },
   {
@@ -144,6 +164,7 @@
     "latlng": [39, 22],
     "name": "Greece",
     "country_code": "GR",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Greece.svg",
     "capital": "Athens"
   },
   {
@@ -151,6 +172,7 @@
     "latlng": [45.16666666, 15.5],
     "name": "Croatia",
     "country_code": "HR",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Flag_of_Croatia.svg",
     "capital": "Zagreb"
   },
   {
@@ -158,6 +180,7 @@
     "latlng": [47, 20],
     "name": "Hungary",
     "country_code": "HU",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Flag_of_Hungary.svg",
     "capital": "Budapest"
   },
   {
@@ -165,6 +188,7 @@
     "latlng": [54.25, -4.5],
     "name": "Isle of Man",
     "country_code": "IM",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Flag_of_the_Isle_of_Man.svg",
     "capital": "Douglas"
   },
   {
@@ -172,6 +196,7 @@
     "latlng": [53, -8],
     "name": "Ireland",
     "country_code": "IE",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/4/45/Flag_of_Ireland.svg",
     "capital": "Dublin"
   },
   {
@@ -179,6 +204,7 @@
     "latlng": [42.83333333, 12.83333333],
     "name": "Italy",
     "country_code": "IT",
+    "flag": "https://upload.wikimedia.org/wikipedia/en/0/03/Flag_of_Italy.svg",
     "capital": "Rome"
   },
   {
@@ -186,6 +212,7 @@
     "latlng": [49.25, -2.16666666],
     "name": "Jersey",
     "country_code": "JE",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Flag_of_Jersey.svg",
     "capital": "Saint Helier"
   },
   {
@@ -193,6 +220,7 @@
     "latlng": [42.666667, 21.166667],
     "name": "Kosovo",
     "country_code": "XK",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Flag_of_Kosovo.svg",
     "capital": "Pristina"
   },
   {
@@ -200,6 +228,7 @@
     "latlng": [47.26666666, 9.53333333],
     "name": "Liechtenstein",
     "country_code": "LI",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/4/47/Flag_of_Liechtenstein.svg",
     "capital": "Vaduz"
   },
   {
@@ -207,6 +236,7 @@
     "latlng": [56, 24],
     "name": "Lithuania",
     "country_code": "LT",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/1/11/Flag_of_Lithuania.svg",
     "capital": "Vilnius"
   },
   {
@@ -214,6 +244,7 @@
     "latlng": [49.75, 6.16666666],
     "name": "Luxembourg",
     "country_code": "LU",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/d/da/Flag_of_Luxembourg.svg",
     "capital": "Luxembourg"
   },
   {
@@ -221,6 +252,7 @@
     "latlng": [57, 25],
     "name": "Latvia",
     "country_code": "LV",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/8/84/Flag_of_Latvia.svg",
     "capital": "Riga"
   },
   {
@@ -228,6 +260,7 @@
     "latlng": [43.73333333, 7.4],
     "name": "Monaco",
     "country_code": "MC",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Flag_of_Monaco.svg",
     "capital": "Monaco"
   },
   {
@@ -235,6 +268,7 @@
     "latlng": [47, 29],
     "name": "Moldova",
     "country_code": "MD",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/9/98/Flag_of_Chi%C8%99in%C4%83u.svg",
     "capital": "Chi\u0219in\u0103u"
   },
   {
@@ -242,6 +276,7 @@
     "latlng": [41.83333333, 22],
     "name": "Macedonia",
     "country_code": "MK",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_North_Macedonia.svg",
     "capital": "Skopje"
   },
   {
@@ -249,6 +284,7 @@
   "latlng": [35.83333333, 14.58333333],
   "name": "Malta",
   "country_code": "MT",
+  "flag": "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Malta.svg",
   "capital": "Valletta"
 },
 {
@@ -256,6 +292,7 @@
     "latlng": [42.5, 19.3],
     "name": "Montenegro",
     "country_code": "ME",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
     "capital": "Podgorica"
   },
   {
@@ -263,6 +300,7 @@
     "latlng": [52.5, 5.75],
     "name": "Netherlands",
     "country_code": "NL",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/2/20/Flag_of_the_Netherlands.svg",
     "capital": "Amsterdam"
   },
   {
@@ -270,6 +308,7 @@
     "latlng": [62, 10],
     "name": "Norway",
     "country_code": "NO",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Flag_of_Norway.svg",
     "capital": "Oslo"
   },
   {
@@ -277,6 +316,7 @@
     "latlng": [52, 20],
     "name": "Poland",
     "country_code": "PL",
+    "flag": "https://upload.wikimedia.org/wikipedia/en/1/12/Flag_of_Poland.svg",
     "capital": "Warsaw"
   },
   {
@@ -284,6 +324,7 @@
     "latlng": [39.5, -8],
     "name": "Portugal",
     "country_code": "PT",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Portugal.svg",
     "capital": "Lisbon"
   },
   {
@@ -291,6 +332,7 @@
     "latlng": [46, 25],
     "name": "Romania",
     "country_code": "RO",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Romania.svg",
     "capital": "Bucharest"
   },
   {
@@ -325,6 +367,7 @@
     "latlng": [60, 100],
     "name": "Russia",
     "country_code": "RU",
+    "flag": "https://upload.wikimedia.org/wikipedia/en/f/f3/Flag_of_Russia.svg",
     "capital": "Moscow"
   },
   {
@@ -332,6 +375,7 @@
     "latlng": [43.76666666, 12.41666666],
     "name": "San Marino",
     "country_code": "SM",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Flag_of_San_Marino.svg",
     "capital": "City of San Marino"
   },
   {
@@ -339,6 +383,7 @@
     "latlng": [44, 21],
     "name": "Serbia",
     "country_code": "RS",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Flag_of_Serbia.svg",
     "capital": "Belgrade"
   },
   {
@@ -346,6 +391,7 @@
     "latlng": [48.66666666, 19.5],
     "name": "Slovakia",
     "country_code": "SK",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/e/e6/Flag_of_Slovakia.svg",
     "capital": "Bratislava"
   },
   {
@@ -353,6 +399,7 @@
     "latlng": [46.11666666, 14.81666666],
     "name": "Slovenia",
     "country_code": "SI",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Flag_of_Slovenia.svg",
     "capital": "Ljubljana"
   },
   {
@@ -360,6 +407,7 @@
     "latlng": [62, 15],
     "name": "Sweden",
     "country_code": "SE",
+    "flag": "https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Sweden.svg",
     "capital": "Stockholm"
   },
   {
@@ -367,6 +415,7 @@
     "latlng": [39, 35],
     "name": "Turkey",
     "country_code": "TR",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg",
     "capital": "Ankara"
   },
   {
@@ -374,6 +423,7 @@
     "latlng": [49, 32],
     "name": "Ukraine",
     "country_code": "UA",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Ukraine.svg",
     "capital": "Kiev"
   }
 ]

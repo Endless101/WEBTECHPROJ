@@ -5,6 +5,13 @@ import COUNTRIES from "../../data/countries.json";
 import EUROPECOUNTRIES from "../../data/europe_countries.json";
 import CountryPin from "../tools/country-pin";
 import CountryInfo from "../tools/country-info";
+import { Button, Grid, Radio, Typography } from "@material-ui/core";
+import { RadioGroup } from "@material-ui/core";
+import { FormControlLabel } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { FormHelperText } from "@material-ui/core";
+import AddSearch from "../tools/SearchBar";
+import { FormControl } from "@material-ui/core";
 
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoicGVhbnV0MjIybGluayIsImEiOiJja3d3bHBhNmcwNHNqMm9sYzJ5OHA2Z2QxIn0.WBRF5d_uHeFJNHW-iYsUxw";
@@ -32,9 +39,9 @@ export default class AddMap extends Component {
 
   _onSelected = (viewport, item) => {
     this.setState({
-      viewport
-    })
-}
+      viewport,
+    });
+  };
 
   _renderCountryMarker = (country) => {
     return (
@@ -64,7 +71,7 @@ export default class AddMap extends Component {
           closeOnClick={false}
           onClose={() => this.setState({ popupInfo: null })}
         >
-          <CountryInfo info={popupInfo} />
+          <CountryInfo country={popupInfo} />
         </Popup>
       )
     );
@@ -74,6 +81,54 @@ export default class AddMap extends Component {
     const { viewport } = this.state;
 
     return (
+      <Grid container spacing={1}>
+        <Grid item xs={5} align="center">
+          <Typography component="h4" variant="h4">
+            Mundus Traveller
+          </Typography>
+        </Grid>
+        <Grid item xs={7} align="center">
+          <Button
+            variant="contained"
+            color="primary"
+            to={"/profile"}
+            component={Link}
+          >
+            Profile
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            to={"/register"}
+            component={Link}
+          >
+            Register
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            to={"/login"}
+            component={Link}
+          >
+            Login
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            to={"/logout"}
+            component={Link}
+          >
+            Logout
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            to={"/search"}
+            component={Link}
+          >
+            Search
+          </Button>
+        </Grid>
         <Mapbox
           {...viewport}
           width="100vw"
@@ -85,6 +140,7 @@ export default class AddMap extends Component {
           {EUROPECOUNTRIES.map(this._renderCountryMarker)}
           {this._renderPopup()}
         </Mapbox>
+      </Grid>
     );
   }
 }
