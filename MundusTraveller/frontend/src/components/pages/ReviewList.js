@@ -23,7 +23,7 @@ export default class ReviewList extends Component {
         this.reviewstate = {name: "placeholder", rate: 0};
     }
     componentDidMount() {
-        fetch("backend/post")
+        fetch("../backend/post")
         .then(response => response.json())
         .then(data =>this.setState({
             data: data
