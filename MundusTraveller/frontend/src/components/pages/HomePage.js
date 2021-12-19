@@ -129,6 +129,7 @@ export default class AddMap extends Component {
             Search
           </Button>
         </Grid>
+        <AddSearch/>
         <Mapbox
           {...viewport}
           width="100vw"
