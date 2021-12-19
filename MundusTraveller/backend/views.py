@@ -1,11 +1,11 @@
 #from _typeshed import Self
-from django.db.models.fields import EmailField
+from django.db.models.fields import EmailField, NullBooleanField
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework import generics, serializers, status
-from .serializers import CreateUserSerializer, LikeSerializer, LoginSerializer, ReviewSerializer, UpdateReviewSerializer
-from .models import CreateUserModel, LikeModel, ReviewModel
+from .serializers import CreateUserSerializer, LikeSerializer, LoginSerializer, ReviewSerializer, UpdateReviewSerializer, CountryRatingSerializer
+from .models import CreateUserModel, LikeModel, ReviewModel, CountryRatingModel
 from rest_framework.views import APIView
 from django.http import HttpResponseRedirect
 from rest_framework.response import Response
@@ -197,3 +197,30 @@ def handleLikes(request):
                 return HttpResponse(status=200)
             else: return HttpResponse(status=304)
             
+def postAddCountry(request):
+    if request.method == 'POST':
+        session = request.session
+        serializer_class = CountryRatingSerializer
+        serializer = serializer_class(data=request.POST)
+
+        if serializer.is_valid():
+            print("serializer is valid")
+            useremail = session['email']
+            postcountry = serializer.data['countryname']
+            postscore = serializer.data['countryscore']
+            newRating = CountryRatingModel(email=useremail, countryname=postcountry, countryscore=postscore)
+            newRating.save()
+            print("rating added")
+        else: 
+            print("serializer not valid")
+    return HttpResponseRedirect('http://localhost:8000/profile')
+    
+
+def getCountryList(request):
+    session = request.session
+    useremail = session['email']
+    countryList = []
+    countryQueryset = CountryRatingModel.objects.filter(email=useremail)
+    for obj in countryQueryset:
+        countryList.extend([obj.countryname, obj.countryscore])
+    return JsonResponse(countryList, status=status.HTTP_200_OK)
