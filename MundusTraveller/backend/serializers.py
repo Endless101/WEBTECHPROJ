@@ -18,7 +18,7 @@ class LoginSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = ReviewModel
-        fields = ('review','rating','country')
+        fields = ('review','country')
 
 
 
