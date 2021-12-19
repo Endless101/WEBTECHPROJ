@@ -1,6 +1,6 @@
 from django.db.models import fields
 from rest_framework import serializers
-from .models import CreateUserModel, LikeModel, Login, ReviewModel, UpdateReviewModel
+from .models import CreateUserModel, LikeModel, Login, ReviewModel, UpdateReviewModel, CountryRatingModel
 
 class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,3 +32,8 @@ class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = LikeModel
         fields = ( 'writer','review')
+
+class CountryRatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CountryRatingModel
+        fields = ('countryname', 'countryscore')
