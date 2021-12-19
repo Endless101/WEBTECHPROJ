@@ -13,5 +13,6 @@ urlpatterns = [
     path('search/', views.getUser),
     path('addCountry/', views.postAddCountry),
     path('getCountryList/', views.getCountryList),
-    path('getUserInfo', views.getUserInfo)
+    path('getUserInfo', views.getUserInfo),
+    path('getUserEmail', views.getUserEmail)
 ]

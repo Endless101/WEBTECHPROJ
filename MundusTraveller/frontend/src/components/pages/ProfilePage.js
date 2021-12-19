@@ -12,6 +12,8 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import axios from 'axios';
 import LandList from './LandList';
+import ReviewList from "./ReviewList";
+import Review from "./Review";
 
 
 
@@ -24,7 +26,8 @@ constructor(props) {
             {Place: 'Paris', Review: 'Overrated, too many tourists but bootivol'},
             {Place: 'Austria', Review: 'Yes very good'}  
         ],
-    };
+        userEmail : ""  
+    };  
 }
 
 convertOneReview = (elementFromList) => {
@@ -61,9 +64,24 @@ checkAddCountryForm = () => {
     } else return false
 }
 
+getCurrentEmail = () => {
+    const [coordinates, setCoordinatesFromApi] = useState([])
+    React.useEffect(() => {
+        axios.get("http://localhost:8000/backend/getUserEmail", { params: { user: "self" }})
+            .then(response => {
+                this.setState({ userEmail : response.data })
+            }, error => {
+                console.log(error)
+            })
+    }, [coordinates.length])
+    console.log(this.state.userEmail)
+    return <div></div>
+}
+
 render() {
     return (
     <Grid container spacing={1}>
+        <this.getCurrentEmail />
         <Grid item xs={4} align="center">
             <Grid container spacing={1}>
                     <Grid item xs={12} align="center">
@@ -90,7 +108,8 @@ render() {
             <Typography component='h4' variant='h4'>
                 User's Reviews
             </Typography>
-            <this.showReviewList />
+            <ReviewList keys={this.state.userEmail} owner="true" filter="user"/>
+            <Review id="Review" text="Enter your review here"/>
         </Grid>
     </Grid>);
 }

@@ -161,13 +161,14 @@ export default class ReviewList extends Component {
             <div>
                 <ul> 
                     {arr.map( review => {
-                        if(this.props.owner == "true")
-                        return (
-                            <li key={review.id} id={review.id} > {review.user}: {review.propss}
-                            <input type="submit" value="Edit" onClick={this.handleUpdate} />
-                            <input id={"delete"+review.id} type="submit" value="Delete" onClick={this.deleteReview}/>
-                            </li> 
-                        )
+                        console.log(this.props.owner)
+                        if(this.props.owner == true)
+                            return (
+                                <li key={review.id} id={review.id} > {review.user}: {review.propss}
+                                <input type="submit" value="Edit" onClick={this.handleUpdate} />
+                                <input id={"delete"+review.id} type="submit" value="Delete" onClick={this.deleteReview}/>
+                                </li> 
+                            )
                         else return(<li key={review.id} id={review.id} >{review.user}: {review.propss}
                            <label> Amount of Likes: {review.likes} <button onClick={() => {
                                axios.post("http://localhost:8000/backend/likes/", {
@@ -192,7 +193,6 @@ export default class ReviewList extends Component {
                         }>Like!</button></label> </li> )
                     })}
                 </ul>
-            <Review id="Review" text="Enter your review here"/>
             </div>
 
         )
