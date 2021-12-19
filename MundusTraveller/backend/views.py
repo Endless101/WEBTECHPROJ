@@ -44,13 +44,7 @@ def main(request):
            #return HttpResponseRedirect('/succes/')
 
 
-def validEmail(email):
-    Atidx = email.index('@')
-    dotidx = email.index('.')
-    Bool = False 
-    if Atidx != -1 and dotidx != -1 and dotidx > Atidx:
-            Bool = True
-    return Bool
+
 
 def postCreateUserModel(request):
     inputs = {}
@@ -76,6 +70,9 @@ def postCreateUserModel(request):
 
         if len(username) < 6:
             errors['username'] = "Username needs to be atleast 6 characters long"
+        elif len(CreateUserModel.objects.filter(username=username)) != 0:
+            errors['username'] = "Username is already registered"
+
 
         if len(password) < 8:
             errors['password'] = "Password must be atleast 8 characters long"
@@ -99,7 +96,7 @@ def postCreateUserModel(request):
             return JsonResponse(data,status=200)
 
 
-        obj = CreateUserModel.objects.filter(email=email)
+        obj = CreateUserModel.objects.filter(email=email , username=username)
         if(len(obj) == 0): 
             createuser = CreateUserModel(firstname=firstname, lastname=lastname,username=username,password=password,email=email, DOB=DOB)
             createuser.save()
@@ -136,8 +133,11 @@ def postLogin(request):
             except ObjectDoesNotExist:
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             objpassword = obj.password
+            objusername = obj.username
             if(postpassword == objpassword):
                 request.session['email'] = postemail
+                request.session['username'] = objusername
+
                 prettyprint(request.session['email'])
                 return HttpResponseRedirect('../logout')
             else: return print("efzefz")
@@ -149,11 +149,12 @@ def postLogin(request):
             errors['email'] = "This email is not registered"
             return JsonResponse(errors)
         elif len(objs) == 1:
-            errors['email'] = "This email exists"
+            errors['email'] = "This email is registerd"
             return JsonResponse(errors)
 
 
 def postReview(request):
+    errors = {}
     if request.method == 'POST':
         session = request.session
         serializer_class = ReviewSerializer
@@ -162,21 +163,23 @@ def postReview(request):
     
         if serializer.is_valid():
             review_data = serializer.data['review']
-            review_rating = serializer.data['rating']
             review_country = serializer.data['country']
-            review_user = session['email']
-            review = ReviewModel(review=review_data, email=review_user, rating=review_rating, country=review_country)
+            review_email = session['email']
+            review_user = session['username']
+            review = ReviewModel(review=review_data, email=review_email, username=review_user, country=review_country)
             prettyprint(review.email)
             review.save()
-            return HttpResponseRedirect('../succes/')
-        else: prettyprint(serializer.data)
+            return HttpResponse(status=201)
+        else: 
+                errors['review'] = "Please enter a country and a valid review"
+                return JsonResponse(errors)
     elif request.method == 'GET':
         data = ReviewModel.objects.all()
         ls = {}
         idx = 0
         for e in data:
             ls['review' + str(idx)] = {'review': e.review,
-                                        'email': e.email,
+                                        'username': e.username,
                                         'country': e.country,
                                         'rating': e.rating,
                                         'likes': e.likes}

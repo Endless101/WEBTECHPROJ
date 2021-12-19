@@ -136,14 +136,14 @@ export default class ReviewList extends Component {
             if(filter == "country") {
                 if(key == this.state.data[propss].country )
                 arr.push({propss: this.state.data[propss].review,
-                    user: this.state.data[propss].email,
+                    user: this.state.data[propss].username,
                     likes:this.state.data[propss].likes,
                     id: idx})
             }
             else if(filter == "user") {
                 if(key == this.state.data[propss].email)
                 arr.push({propss: this.state.data[propss].review,
-                    user: this.state.data[propss].email,
+                    user: this.state.data[propss].username,
                     likes:this.state.data[propss].likes,
                     id: idx})
             }
