@@ -25,7 +25,7 @@ export default class App extends Component {
                 <Route path="/login"   component={Login}/>
                 <Route path="/register" component={CreateUser} />
                 <Route path="/google" component={GoogleLogin} />
-                <Route path="/review" component={() =><ReviewList keys="flynn.steppe@gmail.com" owner="true" filter="user"/>}/>
+                <Route path="/review" component={() =><ReviewList keys="taoufikcherroud@gmail.com" owner="true" filter="user"/>}/>
                 <Route path="/logout" component={Logout}/>
                 <Route path="/country/:key" component={CountryPage} />
                 <Route path="/search" component={SearchBar} />

@@ -6,7 +6,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CreateUserModel
         name = serializers.CharField
-        fields = ('firstname', 'lastname','username','password','email','DOB',)
+        fields = ('firstname', 'lastname','username','password','confirmPassword','email','DOB',)
 
 
 class LoginSerializer(serializers.ModelSerializer):

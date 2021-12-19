@@ -47,7 +47,7 @@ export default class Review extends Component {
          return( <div>   
                 <label> Country: </label> <input id="country" type="text"></input> <br></br>
                 <label>Write your review : </label><br></br>
-                <textarea name="review" id="review" type="text" cols="92" rows="15" defaultValue={this.props.text}></textarea><br></br>
+                <textarea name="review" id="review" type="text" cols="92" rows="15" placeholder={this.props.text}></textarea><br></br>
                 <Rating name="rating" onClick={this.handleRating}> {60}</Rating><br></br>
                 <input type="submit" value="Post" onClick={this.handleFormSubmit}/>
                 
