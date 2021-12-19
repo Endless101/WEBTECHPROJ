@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-ro
 import CreateUser from "./pages/CreateUser"
 import GoogleLogin from "./pages/GoogleLogin"
 import ProfilePage from "./pages/ProfilePage"
+import ProfileInfo from "./pages/ProfileInfo"
 import Login from "./pages/Login"
 import ReviewList from "./pages/ReviewList"
 import Logout from "./pages/Logout"
@@ -21,6 +22,7 @@ export default class App extends Component {
         <Router>
             <Switch>
                 <Route exact path="/" component={HomePage} />
+                <Route path="/profile/info" component={ProfileInfo} />
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/login"   component={Login}/>
                 <Route path="/register" component={CreateUser} />
