@@ -258,11 +258,16 @@ def handleLikes(request):
             else: return HttpResponse(status=304)
 
 def getUser(request):
-    data = eval(request.body.decode())
-    user = data['user']
-    object = ReviewModel.objects.filter(username=user)
-    prettyprint(object)
-    return HttpResponse(status=200)
+    errors = {}
+    data = request.GET
+    username = data['username']
+    object = ReviewModel.objects.filter(username=username)
+    if(len(object) != 0):
+        return HttpResponse(status=200)
+    else:
+         errors['username'] = "This user does not exist"
+         return JsonResponse(errors,status=201)
+
             
             
             
