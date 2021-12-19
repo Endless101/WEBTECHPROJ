@@ -299,6 +299,7 @@ def getCountryList(request):
     countryQueryset = CountryRatingModel.objects.filter(email=useremail)
     for obj in countryQueryset:
         countryList.extend([obj.countryname, obj.countryscore])
+    prettyprint(countryList)
     return JsonResponse(countryList, status=status.HTTP_200_OK)
 
 def getUserInfo(request):
