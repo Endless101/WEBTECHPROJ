@@ -224,3 +224,18 @@ def getCountryList(request):
     for obj in countryQueryset:
         countryList.extend([obj.countryname, obj.countryscore])
     return JsonResponse(countryList, status=status.HTTP_200_OK)
+
+def getUserInfo(request):
+    if request.session.exists(request.session.session_key):
+        session = request.session
+        email = session['email']
+        try:
+            obj = CreateUserModel.objects.get(email=email)
+        except ObjectDoesNotExist:
+            return JsonResponse([], status=status.HTTP_200_OK)
+        firstname = obj.firstname
+        lastname = obj.lastname
+        username = obj.username
+        DOB = obj.DOB
+        userinfo = [firstname, lastname, username, email, DOB]
+        return JsonResponse(userinfo, status=status.HTTP_200_OK)

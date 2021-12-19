@@ -11,5 +11,6 @@ urlpatterns = [
     path('logout/',views.handleLogout),
     path('likes/', views.handleLikes),
     path('addCountry/', views.postAddCountry),
-    path('getCountryList/', views.getCountryList)
+    path('getCountryList/', views.getCountryList),
+    path('getUserInfo', views.getUserInfo)
 ]
