@@ -139,7 +139,7 @@ def postLogin(request):
 
                 prettyprint(request.session['email'])
                 return HttpResponseRedirect('../logout')
-            else: return print("efzefz")
+            else: return HttpResponseRedirect('HTTP_REFERER')
     elif request.method == 'GET':
         data = request.GET
         email = data['email']
@@ -202,6 +202,7 @@ def postReview(request):
                 return HttpResponse(status=200)
     elif request.method == 'DELETE':
         prettyprint(request.method)
+
         data = eval(request.body.decode())
         prettyprint(data)
         
