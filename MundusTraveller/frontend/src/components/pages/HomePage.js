@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { FormHelperText } from "@material-ui/core";
 import AddSearch from "../tools/SearchBar";
 import { FormControl } from "@material-ui/core";
+import Logout from "./Logout"
 
 
 
@@ -83,6 +84,7 @@ export default class AddMap extends Component {
     const { viewport } = this.state;
 
     return (
+      <body class="primary">
       <Grid container spacing={1}>
         <Grid item xs={5} align="center">
           <Typography component="h4" variant="h4">
@@ -117,19 +119,12 @@ export default class AddMap extends Component {
           <Button
             variant="contained"
             color="primary"
-            to={"/logout"}
-            component={Link}
-          >
-            Logout
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
             to={"/search"}
             component={Link}
           >
             Search
           </Button>
+          <Logout/>
         </Grid>
         <AddSearch/>
         <Mapbox
@@ -144,6 +139,7 @@ export default class AddMap extends Component {
           {this._renderPopup()}
         </Mapbox>
       </Grid>
+      </body>
     );
   }
 }

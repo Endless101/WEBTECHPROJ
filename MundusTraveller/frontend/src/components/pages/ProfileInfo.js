@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Textfield from "@material-ui/core/TextField";
 import axios from 'axios';
+import Logout from "./Logout"
 
 export default class ProfilePage extends Component {
 constructor(props) {
@@ -68,6 +69,7 @@ getUserInfo = () => {
 
 render() {
     return (
+        <body class="primary">
     <Grid container spacing={1}>
         <Grid item xs={12} align="center">
             <h1>User Info</h1>
@@ -75,7 +77,9 @@ render() {
         <Grid item xs={12} align="center">
             <this.getUserInfo />
         </Grid>
+        <Logout/>
     </Grid>
+    </body>
     );
 }
 }

@@ -66,6 +66,13 @@ export default class AddSearch extends Component {
         <div>
           <input type="text" id="userID" defaultValue="John"></input>{this.state.errors[0].username}<br></br>
           <div><button onClick={this._getUsernameFromDatabase}> Go to Profile</button></div>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this._getUsernameFromDatabase}
+          >
+            Go to Profile
+          </Button>
         </div>
     );
   }

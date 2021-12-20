@@ -30,12 +30,15 @@ export default class Login extends Component {
     
 
     render() {
-        return (<div><form method="post" action="/backend/login">
+        return (
+            <body class="primary">
+                <div><form method="post" action="/backend/login">
             <label id="email">Email: <input name="email" type="email" required onBlur={this.checkEmail}></input></label> {this.state.errors[0].email} <br></br>
             <label id="password">Password: <input name="password" type="password" required></input></label><br></br>
             <input type="submit" value="login"></input>
         </form>
         </div>
+        </body>
         
         
         )

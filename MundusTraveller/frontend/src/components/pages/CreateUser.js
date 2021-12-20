@@ -57,7 +57,9 @@ export default class CreateUser extends Component {
 
 
 render () {
-    return (<form>
+    return (
+        <body class="primary">
+            <form>
         <label>Firstname: <input name="firstname" id="firstname" type="text"></input></label><br></br>
         <label>Lastname: <input name="lastname" id="lastname" type="text"></input></label><br></br>
         <label>Username: <input name="username" id="username" type="text"></input></label>{this.state.errors[0].username}<br></br>
@@ -66,7 +68,8 @@ render () {
         <label>Email: <input name="email" id="email" type="email"></input></label> {this.state.errors[0].email} <br></br>
         <label>Date of birth: <input name="DOB" id="DOB" type="date"></input></label><br></br>
         <label>Submit: <button type="submit" value="Submit" onClick={this.handleFormSubmit} > Submit</button> </label>
-    </form>)
+    </form>
+    </body>)
 }
 
 }

@@ -142,7 +142,7 @@ def postLogin(request):
                 request.session['username'] = objusername
 
                 prettyprint(request.session['email'])
-                return HttpResponseRedirect('../logout')
+                return HttpResponseRedirect('../profile')
             else: return HttpResponseRedirect('HTTP_REFERER')
         else: HttpResponseRedirect('HTTP_REFERER')
     elif request.method == 'GET':
@@ -153,7 +153,7 @@ def postLogin(request):
             errors['email'] = "This email is not registered"
             return JsonResponse(errors)
         elif len(objs) == 1:
-            errors['email'] = "This email is registerd"
+            errors['email'] = "This email is registered"
             return JsonResponse(errors)
 
 
@@ -274,7 +274,7 @@ def getUser(request):
         return HttpResponse(status=200)
     else:
          errors['username'] = "This user does not exist"
-         return JsonResponse(errors,status=201)
+         return JsonResponse(errors,status=201, safe=False)
 
             
             
@@ -321,7 +321,7 @@ def getCountryList(request):
     for obj in countryQueryset:
         countryList.extend([obj.countryname, obj.countryscore])
     prettyprint(countryList)
-    return JsonResponse(countryList, status=status.HTTP_200_OK)
+    return JsonResponse(countryList, status=status.HTTP_200_OK, safe=False)
 
 def getUserInfo(request):
     if request.session.exists(request.session.session_key):
@@ -330,14 +330,14 @@ def getUserInfo(request):
         try:
             obj = CreateUserModel.objects.get(email=email)
         except ObjectDoesNotExist:
-            return JsonResponse([], status=status.HTTP_200_OK)
+            return JsonResponse([], status=status.HTTP_200_OK, safe=False)
         firstname = obj.firstname
         lastname = obj.lastname
         username = obj.username
         DOB = obj.DOB
         userinfo = [firstname, lastname, username, email, DOB]
-        return JsonResponse(userinfo, status=status.HTTP_200_OK)
+        return JsonResponse(userinfo, status=status.HTTP_200_OK, safe=False)
 
 def getUserEmail(request):
     useremail = searchUserEmail(request)
-    return JsonResponse(useremail, status=status.HTTP_200_OK)
+    return JsonResponse(useremail, status=status.HTTP_200_OK, safe=False)
