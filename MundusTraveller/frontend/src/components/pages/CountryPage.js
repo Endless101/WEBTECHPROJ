@@ -7,7 +7,7 @@ export default class CountryHub extends Component {
     super(props);
     this.key = this.props.match.params.key;
   }
-
+ 
   render() {
     return (
       <body class="primary">
