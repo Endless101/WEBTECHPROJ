@@ -53,6 +53,8 @@ export default class ReviewList extends Component {
         updateButton.value = "Update"
         updateButton.onclick = function(event) { 
            const newContent = event.target.parentNode.children[0].value
+           console.log("tishiertedoen")
+           console.log(event.target.parentNode.children[0].value)
            const params = new URLSearchParams
            params.append('oldContent', oldContent)
            params.append('newContent', newContent)
@@ -113,6 +115,7 @@ export default class ReviewList extends Component {
      deleteReview(event) {
         const el = event.target.parentNode
         const review = el.textContent.substring(el.textContent.indexOf(":") + 1, el.textContent.length)
+        console.log(review)
         axios.delete("http://localhost:8000/backend/post/", {
            data:  {
             review:review
@@ -162,12 +165,12 @@ export default class ReviewList extends Component {
                 <ul> 
                     {arr.map( review => {
                         if(this.props.owner == "true")
-                        return (
-                            <li key={review.id} id={review.id} > {review.user}: {review.propss}
-                            <input type="submit" value="Edit" onClick={this.handleUpdate} />
-                            <input id={"delete"+review.id} type="submit" value="Delete" onClick={this.deleteReview}/>
-                            </li> 
-                        )
+                            return (
+                                <li key={review.id} id={review.id} > {review.user}: <br></br> {review.propss}<br></br>
+                                <input type="submit" value="Edit" onClick={this.handleUpdate} />
+                                <input id={"delete"+review.id} type="submit" value="Delete" onClick={this.deleteReview}/>
+                                </li> 
+                            )
                         else return(<li key={review.id} id={review.id} >{review.user}: {review.propss}
                            <label> Amount of Likes: {review.likes} <button onClick={() => {
                                axios.post("http://localhost:8000/backend/likes/", {
@@ -192,7 +195,6 @@ export default class ReviewList extends Component {
                         }>Like!</button></label> </li> )
                     })}
                 </ul>
-            <Review id="Review" text="Enter your review here"/>
             </div>
 
         )

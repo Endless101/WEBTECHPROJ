@@ -15,6 +15,10 @@ from django.contrib.sessions.backends.db import SessionStore
 from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 import json
+import os
+
+with open("frontend/src/data/europe_countries.json") as countries:
+    europe_countries = json.load(countries)
 
 def prettyprint(obj):
     print('\n')
@@ -184,7 +188,6 @@ def postReview(request):
                                         'rating': e.rating,
                                         'likes': e.likes}
             idx = idx + 1
-        prettyprint(ls)
         data = { 
             "reviews": ls
         
@@ -206,9 +209,10 @@ def postReview(request):
         prettyprint(request.method)
 
         data = eval(request.body.decode())
-        prettyprint(data)
+        prettyprint(data['review'])
+
         
-        to_be_deleted = data['review']
+        to_be_deleted = data['review'][1:]
         obj = ReviewModel.objects.get(review = to_be_deleted)
         obj.delete()
         return HttpResponse(status=200)
@@ -245,7 +249,7 @@ def handleLikes(request):
         data= eval(request.body)
         serializer = serializer_class(data=data)
         if serializer.is_valid():
-            prettyprint(serializer.data)
+            #prettyprint(serializer.data)
             currUser = request.session['email']
             writer = serializer.data['writer']
             review = serializer.data['review']
@@ -273,26 +277,36 @@ def getUser(request):
 
             
             
-            
+def checkCountryName(name):
+    for i in europe_countries:
+        if (i['name']==name):
+            return True
+    return False
+
 def postAddCountry(request):
     if request.method == 'POST':
         session = request.session
         serializer_class = CountryRatingSerializer
         serializer = serializer_class(data=request.POST)
+        prettyprint(europe_countries[0])
+
 
         if serializer.is_valid():
             print("serializer is valid")
-            useremail = session['email']
             postcountry = serializer.data['countryname']
-            postscore = serializer.data['countryscore']
-            newRating = CountryRatingModel(email=useremail, countryname=postcountry, countryscore=postscore)
-            newRating.save()
-            print("rating added")
+            if checkCountryName(postcountry):
+                postscore = serializer.data['countryscore']
+                useremail = session['email']
+                newRating = CountryRatingModel(email=useremail, countryname=postcountry, countryscore=postscore)
+                newRating.save()
+                print("rating added")
         else: 
             print("serializer not valid")
     return HttpResponseRedirect('http://localhost:8000/profile')
     
-def getUseremail(user, session):
+def searchUserEmail(request):
+    user = request.GET.get('user')
+    session = request.session
     if (user == "self"):
         return session['email']
     else: 
@@ -300,9 +314,7 @@ def getUseremail(user, session):
         return usermodel.email
 
 def getCountryList(request):
-    user = request.GET.get('user')
-    session = request.session
-    useremail = getUseremail(user, session)
+    useremail = searchUserEmail(request)
     countryList = []
     countryQueryset = CountryRatingModel.objects.filter(email=useremail)
     for obj in countryQueryset:
@@ -324,3 +336,7 @@ def getUserInfo(request):
         DOB = obj.DOB
         userinfo = [firstname, lastname, username, email, DOB]
         return JsonResponse(userinfo, status=status.HTTP_200_OK)
+
+def getUserEmail(request):
+    useremail = searchUserEmail(request)
+    return JsonResponse(useremail, status=status.HTTP_200_OK)
