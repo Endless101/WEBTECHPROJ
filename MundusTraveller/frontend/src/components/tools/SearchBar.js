@@ -12,9 +12,12 @@ import { Link } from "react-router-dom";
 export default class AddSearch extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      errors:[{}]
+    };
     this._getUserFromDatabase = this._getUserFromDatabase.bind(this);
     this._getUsernameFromDatabase = this._getUsernameFromDatabase.bind(this);
-    this.state = {};
+  
   }
 
   _getUserFromDatabase = (event) => {
@@ -24,22 +27,45 @@ export default class AddSearch extends Component {
       { user: user },
       {
         headers: {
-          "Content-type": "application/json",
+          
           "Access-Control-Allow-Origin": "http://localhost:8000/",
         },
       }
     );
   };
-
+  //window.location.replace(`http://localhost:8000/profile/${username}`)
   _getUsernameFromDatabase = (event) => {
     const username = document.getElementById("userID").value;
-    return username;
+    const params = new URLSearchParams
+    params.append('username',username)
+    axios.get("http://localhost:8000/backend/search/",{
+      params:params
+    },{
+      headers:{
+        'Content-type':  'application/x-www-form-urlencoded'
+
+      }
+    })
+    .then(res => {
+      if(res.status == "200"){
+        window.location.replace(`http://localhost:8000/profile/${username}`)
+      }
+      if(res.status =="201") {
+        console.log(res.data)
+        this.setState({
+          errors: new Array(res.data)
+        })
+      }
+    })
+    
+  
   };
 
   render() {
     return (
         <div>
-          <input type="text" id="userID" defaultValue="John"></input>
+          <input type="text" id="userID" defaultValue="John"></input>{this.state.errors[0].username}<br></br>
+          <div><button onClick={this._getUsernameFromDatabase}> Go to Profile</button></div>
         </div>
     );
   }
