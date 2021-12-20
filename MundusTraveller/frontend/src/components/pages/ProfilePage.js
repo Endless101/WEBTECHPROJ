@@ -16,16 +16,10 @@ import ReviewList from "./ReviewList";
 import Review from "./Review";
 
 
-
 export default class ProfilePage extends Component {
 constructor(props) {
     super(props);
     this.state = {
-        reviewList: [
-            {Place: 'Belgium', Review: 'I think it do be good but not too good, its okay'},
-            {Place: 'Paris', Review: 'Overrated, too many tourists but bootivol'},
-            {Place: 'Austria', Review: 'Yes very good'}  
-        ],
         userEmail : ""  
     };  
 }
@@ -51,18 +45,7 @@ convertOneReview = (elementFromList) => {
     )
 }
 
-showReviewList = () => {
-    const convertedList = this.state.reviewList.map(el => this.convertOneReview(el))
-    return <div> {convertedList} </div>  
-}
 
-checkAddCountryForm = () => {
-    console.log("First tifejiazmfo")
-    if (document.getElementById("countryname") === "Belgium") {
-        console.log("true afaimezofj")
-        return true
-    } else return false
-}
 
 getCurrentEmail = () => {
     const [coordinates, setCoordinatesFromApi] = useState([])
@@ -74,7 +57,6 @@ getCurrentEmail = () => {
                 console.log(error)
             })
     }, [coordinates.length])
-    console.log(this.state.userEmail)
     return <div></div>
 }
 
@@ -85,9 +67,20 @@ render() {
         <Grid item xs={4} align="center">
             <Grid container spacing={1}>
                     <Grid item xs={12} align="center">
-                        <form method="post" action="backend/addCountry/" content="raw" align="right">
-                            <label>Country: <input name="countryname" id="countryname" type="text"></input> </label><br></br>
-                            <label>Score: <input name="countryscore" id="countryscore" type="number" min={1} max={10}></input></label><br></br>
+                        <form id="addCountryForm" method="post" action="backend/addCountry/" content="raw" align="right">
+                            <label>Country: <input name="countryname" id="countryname" type="text" required onBlur={this.checkCountry}></input> </label><br></br>
+                            <select id="countryscore" name="countryscore">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select><br></br>
                             <input type="submit" value="Add Country"></input>
                         </form>
                     </Grid>

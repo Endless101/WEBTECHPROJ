@@ -53,6 +53,8 @@ export default class ReviewList extends Component {
         updateButton.value = "Update"
         updateButton.onclick = function(event) { 
            const newContent = event.target.parentNode.children[0].value
+           console.log("tishiertedoen")
+           console.log(event.target.parentNode.children[0].value)
            const params = new URLSearchParams
            params.append('oldContent', oldContent)
            params.append('newContent', newContent)
@@ -113,6 +115,7 @@ export default class ReviewList extends Component {
      deleteReview(event) {
         const el = event.target.parentNode
         const review = el.textContent.substring(el.textContent.indexOf(":") + 1, el.textContent.length)
+        console.log(review)
         axios.delete("http://localhost:8000/backend/post/", {
            data:  {
             review:review
@@ -161,10 +164,9 @@ export default class ReviewList extends Component {
             <div>
                 <ul> 
                     {arr.map( review => {
-                        console.log(this.props.owner)
-                        if(this.props.owner == true)
+                        if(this.props.owner == "true")
                             return (
-                                <li key={review.id} id={review.id} > {review.user}: {review.propss}
+                                <li key={review.id} id={review.id} > {review.user}: <br></br> {review.propss}<br></br>
                                 <input type="submit" value="Edit" onClick={this.handleUpdate} />
                                 <input id={"delete"+review.id} type="submit" value="Delete" onClick={this.deleteReview}/>
                                 </li> 

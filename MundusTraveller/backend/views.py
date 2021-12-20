@@ -15,6 +15,10 @@ from django.contrib.sessions.backends.db import SessionStore
 from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 import json
+import os
+
+with open("frontend/src/data/europe_countries.json") as countries:
+    europe_countries = json.load(countries)
 
 def prettyprint(obj):
     print('\n')
@@ -161,14 +165,14 @@ def postReview(request):
         prettyprint(session) 
     
         if serializer.is_valid():
-            review_data = serializer.data['review']
-            review_rating = serializer.data['rating']
             review_country = serializer.data['country']
-            review_user = session['email']
-            review = ReviewModel(review=review_data, email=review_user, rating=review_rating, country=review_country)
-            prettyprint(review.email)
-            review.save()
-            return HttpResponseRedirect('../succes/')
+            if (checkCountryName(review_country)):
+                review_data = serializer.data['review']
+                review_rating = serializer.data['rating']
+                review_user = session['email']
+                review = ReviewModel(review=review_data, email=review_user, rating=review_rating, country=review_country)
+                review.save()
+                return HttpResponseRedirect('../succes/')
         else: prettyprint(serializer.data)
     elif request.method == 'GET':
         data = ReviewModel.objects.all()
@@ -181,7 +185,6 @@ def postReview(request):
                                         'rating': e.rating,
                                         'likes': e.likes}
             idx = idx + 1
-        prettyprint(ls)
         data = { 
             "reviews": ls
         
@@ -201,9 +204,10 @@ def postReview(request):
     elif request.method == 'DELETE':
         prettyprint(request.method)
         data = eval(request.body.decode())
-        prettyprint(data)
+        prettyprint(data['review'])
+
         
-        to_be_deleted = data['review']
+        to_be_deleted = data['review'][1:]
         obj = ReviewModel.objects.get(review = to_be_deleted)
         obj.delete()
         return HttpResponse(status=200)
@@ -240,7 +244,7 @@ def handleLikes(request):
         data= eval(request.body)
         serializer = serializer_class(data=data)
         if serializer.is_valid():
-            prettyprint(serializer.data)
+            #prettyprint(serializer.data)
             currUser = request.session['email']
             writer = serializer.data['writer']
             review = serializer.data['review']
@@ -262,21 +266,29 @@ def getUser(request):
     prettyprint(object)
     return HttpResponse(status=200)
             
-            
+def checkCountryName(name):
+    for i in europe_countries:
+        if (i['name']==name):
+            return True
+    return False
+
 def postAddCountry(request):
     if request.method == 'POST':
         session = request.session
         serializer_class = CountryRatingSerializer
         serializer = serializer_class(data=request.POST)
+        prettyprint(europe_countries[0])
+
 
         if serializer.is_valid():
             print("serializer is valid")
-            useremail = session['email']
             postcountry = serializer.data['countryname']
-            postscore = serializer.data['countryscore']
-            newRating = CountryRatingModel(email=useremail, countryname=postcountry, countryscore=postscore)
-            newRating.save()
-            print("rating added")
+            if checkCountryName(postcountry):
+                postscore = serializer.data['countryscore']
+                useremail = session['email']
+                newRating = CountryRatingModel(email=useremail, countryname=postcountry, countryscore=postscore)
+                newRating.save()
+                print("rating added")
         else: 
             print("serializer not valid")
     return HttpResponseRedirect('http://localhost:8000/profile')
@@ -315,5 +327,4 @@ def getUserInfo(request):
 
 def getUserEmail(request):
     useremail = searchUserEmail(request)
-    prettyprint(useremail)
     return JsonResponse(useremail, status=status.HTTP_200_OK)
