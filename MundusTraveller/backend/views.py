@@ -207,7 +207,7 @@ def postReview(request):
         prettyprint(data['review'])
 
         
-        to_be_deleted = data['review'][1:]
+        to_be_deleted = data['review']
         obj = ReviewModel.objects.get(review = to_be_deleted)
         obj.delete()
         return HttpResponse(status=200)
