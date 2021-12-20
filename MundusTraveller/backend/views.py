@@ -184,6 +184,7 @@ def postReview(request):
         for e in data:
             ls['review' + str(idx)] = {'review': e.review,
                                         'username': e.username,
+                                        'email': e.email,
                                         'country': e.country,
                                         'rating': e.rating,
                                         'likes': e.likes}
@@ -212,7 +213,7 @@ def postReview(request):
         prettyprint(data['review'])
 
         
-        to_be_deleted = data['review'][1:]
+        to_be_deleted = data['review'][2:]
         obj = ReviewModel.objects.get(review = to_be_deleted)
         obj.delete()
         return HttpResponse(status=200)

@@ -8,8 +8,8 @@ export default class CountryInfo extends Component {
     super(props)
     this.state = {
       data: {
-        forecast: "hehe",
-        temperature: "hehe"
+        forecast: "",
+        temperature: ""
       }
     }
   }
