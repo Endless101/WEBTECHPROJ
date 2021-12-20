@@ -40,14 +40,6 @@ export default class AddSearch extends Component {
     return (
         <div>
           <input type="text" id="userID" defaultValue="John"></input>
-          <div><Button
-            variant="contained"
-            color="primary"
-            to={`/profile/${this._getUsernameFromDatabase()}`}
-            component={Link}
-          >
-            Go to User
-          </Button></div>
         </div>
     );
   }
@@ -56,3 +48,12 @@ export default class AddSearch extends Component {
 /* <button onClick={this._getUserFromDatabase}>
             SEARCH
               </button> */
+
+ /*             <div><Button
+            variant="contained"
+            color="primary"
+            to={`/profile/${this._getUsernameFromDatabase()}`}
+            component={Link}
+          >
+            Go to User
+          </Button></div> */

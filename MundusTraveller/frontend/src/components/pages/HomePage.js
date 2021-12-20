@@ -81,67 +81,69 @@ export default class AddMap extends Component {
     const { viewport } = this.state;
 
     return (
-      <Grid container spacing={1}>
-        <Grid item xs={5} align="center">
-          <Typography component="h4" variant="h4">
-            Mundus Traveller
-          </Typography>
+      <body class="primary">
+        <Grid container spacing={1}>
+          <Grid item xs={5} align="center" class="title">
+            <Typography component="h4" variant="h4">
+              Mundus Traveller
+            </Typography>
+          </Grid>
+          <Grid item xs={7} align="center" class="menu">
+            <Button
+              variant="contained"
+              color="primary"
+              to={"/profile"}
+              component={Link}
+            >
+              Profile
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              to={"/register"}
+              component={Link}
+            >
+              Register
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              to={"/login"}
+              component={Link}
+            >
+              Login
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              to={"/logout"}
+              component={Link}
+            >
+              Logout
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              to={"/search"}
+              component={Link}
+            >
+              Search
+            </Button>
+          </Grid>
+          <AddSearch />
+          <Mapbox
+            {...viewport}
+            width="100vw"
+            height="100vh"
+            mapboxApiAccessToken={MAPBOX_TOKEN}
+            mapStyle={"mapbox://styles/mapbox/streets-v11"}
+            onViewportChange={this._updateViewport}
+          >
+            {EUROPECOUNTRIES.map(this._renderCountryMarker)}
+            {this._renderPopup()}
+          </Mapbox>
         </Grid>
-        <Grid item xs={7} align="center">
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/profile"}
-            component={Link}
-          >
-            Profile
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/register"}
-            component={Link}
-          >
-            Register
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/login"}
-            component={Link}
-          >
-            Login
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/logout"}
-            component={Link}
-          >
-            Logout
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/search"}
-            component={Link}
-          >
-            Search
-          </Button>
-        </Grid>
-        <AddSearch/>
-        <Mapbox
-          {...viewport}
-          width="100vw"
-          height="100vh"
-          mapboxApiAccessToken={MAPBOX_TOKEN}
-          mapStyle={"mapbox://styles/mapbox/streets-v11"}
-          onViewportChange={this._updateViewport}
-        >
-          {EUROPECOUNTRIES.map(this._renderCountryMarker)}
-          {this._renderPopup()}
-        </Mapbox>
-      </Grid>
+      </body>
     );
   }
 }

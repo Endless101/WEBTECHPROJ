@@ -13,7 +13,8 @@ export default class OtherProfile extends Component {
 
 render() {
     return (
-    <Grid container spacine={1}>
+        <body class="primary">
+            <Grid container spacine={1}>
         <Grid item xs={12} align="center">
             <Typography component='h2' variant='h2'>
                 {this.user} 's profile
@@ -30,6 +31,7 @@ render() {
         
        
     </Grid>
+        </body>
     ); 
 }
 }

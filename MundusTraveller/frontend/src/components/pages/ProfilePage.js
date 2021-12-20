@@ -63,7 +63,8 @@ checkAddCountryForm = () => {
 
 render() {
     return (
-    <Grid container spacing={1}>
+        <body class="primary">
+            <Grid container spacing={1}>
         <Grid item xs={4} align="center">
             <Grid container spacing={1}>
                     <Grid item xs={12} align="center">
@@ -92,6 +93,8 @@ render() {
             </Typography>
             <this.showReviewList />
         </Grid>
-    </Grid>);
+    </Grid>
+        </body>
+    );
 }
 } 

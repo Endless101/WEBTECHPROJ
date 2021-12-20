@@ -23,6 +23,15 @@ body {
   position: absolute;
   width: 100%;
   padding: 0 10px 50px 10px;
-  /*for non-CSS3 browsers*/
   background-color: #95f09a;
+}
+
+.title {
+  color: rgb(53, 53, 236);
+  padding-left: 100px;
+  text-align: center;
+}
+
+.menu {
+  padding-top: 10px;
 }
