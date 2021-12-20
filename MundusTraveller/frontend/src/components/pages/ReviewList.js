@@ -148,7 +148,8 @@ export default class ReviewList extends Component {
                 arr.push({propss: this.state.data[propss].review,
                     user: this.state.data[propss].username,
                     likes:this.state.data[propss].likes,
-                    id: idx})
+                    id: idx,
+                    country: this.state.data[propss].country})
             }
             idx = idx + 1
         }
@@ -166,7 +167,7 @@ export default class ReviewList extends Component {
                     {arr.map( review => {
                         if(this.props.owner == "true")
                             return (
-                                <li key={review.id} id={review.id} > {review.user}: {review.propss}
+                                <li key={review.id} id={review.id} > {review.user}, {review.country}: {review.propss}
                                 <input type="submit" value="Edit" onClick={this.handleUpdate} />
                                 <input id={"delete"+review.id} type="submit" value="Delete" onClick={this.deleteReview}/>
                                 </li> 
