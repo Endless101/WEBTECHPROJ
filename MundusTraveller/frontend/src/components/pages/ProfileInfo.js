@@ -73,10 +73,12 @@ render() {
     return (
         <body class="primary">
     <Grid container spacing={1}>
-        <Grid item xs={8} align="center">
+        <Grid item xs={4} align="center">
+        </Grid>
+        <Grid item xs={4} align="center">
             <Typography component="h2" variant="h2">
                 User Info
-                </Typography>
+            </Typography>
         </Grid>
         <Grid item xs={4} align="center">
           <Button
@@ -113,7 +115,7 @@ render() {
           </Button>
           <Logout/>
         </Grid>
-        <Grid item xs={8} align="center">
+        <Grid item xs={12} align="center">
             <this.getUserInfo />
         </Grid>
     </Grid>

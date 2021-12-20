@@ -38,3 +38,9 @@ body {
 .review_bottom_padding {
   padding-bottom: 50px;
 }
+
+.labelclass {
+  display: inline-block;
+  width: 150px;
+  text-align: center;
+}

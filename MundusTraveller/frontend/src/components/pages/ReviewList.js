@@ -141,14 +141,16 @@ export default class ReviewList extends Component {
                 arr.push({propss: this.state.data[propss].review,
                     user: this.state.data[propss].username,
                     likes:this.state.data[propss].likes,
-                    id: idx})
+                    id: idx,
+                    country: this.state.data[propss].country})
             }
             else if(filter == "user") {
                 if(key == this.state.data[propss].email)
                 arr.push({propss: this.state.data[propss].review,
                     user: this.state.data[propss].username,
                     likes:this.state.data[propss].likes,
-                    id: idx})
+                    id: idx,
+                    country: this.state.data[propss].country})
             }
             idx = idx + 1
         }
@@ -166,12 +168,12 @@ export default class ReviewList extends Component {
                     {arr.map( review => {
                         if(this.props.owner == "true")
                             return (
-                                <li key={review.id} id={review.id} > {review.user}: <br></br> {review.propss}<br></br>
+                                <li key={review.id} id={review.id} > {review.user}: {review.country} <br></br> {review.propss}<br></br>
                                 <input type="submit" value="Edit" onClick={this.handleUpdate} />
                                 <input id={"delete"+review.id} type="submit" value="Delete" onClick={this.deleteReview}/>
                                 </li> 
                             )
-                        else return(<li key={review.id} id={review.id} >{review.user}: {review.propss}
+                        else return(<li key={review.id} id={review.id} >{review.user}: {review.country}  {" | "}  
                            <label> Amount of Likes: {review.likes} <button onClick={() => {
                                axios.post("http://localhost:8000/backend/likes/", {
                                     writer: review.user,
@@ -192,7 +194,9 @@ export default class ReviewList extends Component {
                                    console.log("You already liked that")
                                })
                             }
-                        }>Like!</button></label> </li> )
+                        }>Like!</button></label><br></br>
+                            {review.propss}
+                            </li> )
                     })}
                 </ul>
             </div>
