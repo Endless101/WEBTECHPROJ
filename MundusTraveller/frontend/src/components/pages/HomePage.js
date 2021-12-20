@@ -84,14 +84,14 @@ export default class AddMap extends Component {
     const { viewport } = this.state;
 
     return (
-      <body class="primary">
+      <body className="primary">
       <Grid container spacing={1}>
-        <Grid item xs={5} align="center">
+        <Grid item xs={4} align="center" className="title">
           <Typography component="h4" variant="h4">
             Mundus Traveller
           </Typography>
         </Grid>
-        <Grid item xs={7} align="center">
+        <Grid item xs={4} align="center">
           <Button
             variant="contained"
             color="primary"
@@ -114,19 +114,13 @@ export default class AddMap extends Component {
             to={"/login"}
             component={Link}
           >
-            Login
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/search"}
-            component={Link}
-          >
-            Search
+            Log in
           </Button>
           <Logout/>
         </Grid>
+        <Grid item xs={4} align="left">
         <AddSearch/>
+        </Grid>
         <Mapbox
           {...viewport}
           width="100vw"

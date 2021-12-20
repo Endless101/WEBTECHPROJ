@@ -3,6 +3,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: Georgia
 }
 
 #main {
@@ -24,4 +25,16 @@ body {
   width: 100%;
   padding: 0 10px 50px 10px;
   background-color: #95f09a;
+}
+
+.title {
+  color: rgb(67, 67, 236);
+}
+
+.search_top_padding {
+ padding-top: 15px;
+}
+
+.review_bottom_padding {
+  padding-bottom: 50px;
 }

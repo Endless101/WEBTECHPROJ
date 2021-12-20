@@ -2,6 +2,8 @@ import React, { Component, useState } from 'react';
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Textfield from "@material-ui/core/TextField";
+import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Logout from "./Logout"
 
@@ -71,13 +73,49 @@ render() {
     return (
         <body class="primary">
     <Grid container spacing={1}>
-        <Grid item xs={12} align="center">
-            <h1>User Info</h1>
+        <Grid item xs={8} align="center">
+            <Typography component="h2" variant="h2">
+                User Info
+                </Typography>
         </Grid>
-        <Grid item xs={12} align="center">
+        <Grid item xs={4} align="center">
+          <Button
+            variant="contained"
+            color="primary"
+            to={"/"}
+            component={Link}
+          >
+            Home
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            to={"/profile"}
+            component={Link}
+          >
+            Profile
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            to={"/register"}
+            component={Link}
+          >
+            Register
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            to={"/login"}
+            component={Link}
+          >
+            Log in
+          </Button>
+          <Logout/>
+        </Grid>
+        <Grid item xs={8} align="center">
             <this.getUserInfo />
         </Grid>
-        <Logout/>
     </Grid>
     </body>
     );

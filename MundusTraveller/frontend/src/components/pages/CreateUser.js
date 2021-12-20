@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import axios from "axios";
+import { Grid, Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 
 export default class CreateUser extends Component {
@@ -59,6 +61,32 @@ export default class CreateUser extends Component {
 render () {
     return (
         <body class="primary">
+            <Grid item xs={12} align="right">
+          <Button
+            variant="contained"
+            color="primary"
+            to={"/"}
+            component={Link}
+          >
+            Home
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            to={"/profile"}
+            component={Link}
+          >
+            Profile
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            to={"/login"}
+            component={Link}
+          >
+            Log in
+          </Button>
+        </Grid>
             <form>
         <label>Firstname: <input name="firstname" id="firstname" type="text"></input></label><br></br>
         <label>Lastname: <input name="lastname" id="lastname" type="text"></input></label><br></br>
