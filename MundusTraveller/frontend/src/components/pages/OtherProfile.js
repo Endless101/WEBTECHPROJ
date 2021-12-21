@@ -42,12 +42,14 @@ export default class OtherProfile extends Component {
       <body class="primary">
         <Grid container spacine={1}>
           <this.getUserEmail />
-          <Grid item xs={6} align="center">
+          <Grid item xs={4} align="center">
+          </Grid>
+          <Grid item xs={4} align="center">
             <Typography component="h2" variant="h2">
               {this.user}'s profile
             </Typography>
           </Grid>
-          <Grid item xs={6} align="right">
+          <Grid item xs={4} align="right">
           <Button
             variant="contained"
             color="primary"
