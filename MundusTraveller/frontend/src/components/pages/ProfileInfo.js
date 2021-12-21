@@ -1,7 +1,8 @@
+/* React imports */
 import React, { Component, useState } from 'react';
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import { Grid, Typography } from "@material-ui/core";
 import axios from 'axios';
+/* Tool imports */
 import RedirectButtons from '../tools/redirect-buttons';
 
 export default class ProfileInfo extends Component {

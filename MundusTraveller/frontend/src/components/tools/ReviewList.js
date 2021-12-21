@@ -1,6 +1,7 @@
+/* React imports */
 import React, {Component} from "react";
-import { Rating } from "react-simple-star-rating"
 import axios from "axios";
+/* Uhm I'm pretty sure this can be deleted but I'll leave it to you Taoufik */
 import Review from "./Review";
 
 

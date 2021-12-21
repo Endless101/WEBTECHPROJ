@@ -1,9 +1,8 @@
+/* React imports */
 import React,{Component} from "react"
 import axios from "axios"
-import { Button } from "@material-ui/core"
-import { Link } from "react-router-dom"
-import { Grid } from "@material-ui/core"
-import Typography from "@material-ui/core/Typography";
+import { Grid, Typography } from "@material-ui/core"
+/* Tool imports */
 import RedirectButtons from '../tools/redirect-buttons';
 
 export default class Login extends Component {

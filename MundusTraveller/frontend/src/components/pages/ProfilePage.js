@@ -1,10 +1,11 @@
+/* React imports */
 import React, { Component, useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import {Grid, Typography } from "@material-ui/core";
 import axios from "axios";
-import LandList from "./LandList";
-import ReviewList from "./ReviewList";
-import Review from "./Review";
+/* Tool imports */
+import LandList from "../tools/LandList";
+import ReviewList from "../tools/ReviewList";
+import Review from "../tools/Review";
 import RedirectButtons from '../tools/redirect-buttons';
 
 export default class ProfilePage extends Component {
@@ -19,7 +20,7 @@ export default class ProfilePage extends Component {
     Fetches the email from the currently logged-in user and stores it in the class-state
   */
   getCurrentEmail = () => {
-    const [coordinates, setCoordinatesFromApi] = useState([]);
+    const [coordinates] = useState([]);
     React.useEffect(() => {
       axios
         .get("http://localhost:8000/backend/getUserEmail", {
@@ -38,7 +39,7 @@ export default class ProfilePage extends Component {
   };
   /* 
     Renders the Profile page of the currently logged-in user,
-    showing the user's landcollection and the reviews that he has written
+    showing the user's country collection and the reviews that he has written
   */
   render() {
     return (

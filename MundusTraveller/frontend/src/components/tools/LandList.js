@@ -1,7 +1,7 @@
+/* React imports */
 import React, { Component, useState } from "react";
 import axios from "axios";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import { Grid, Typography } from "@material-ui/core";
 
 export default class LandList extends Component {
   constructor(props) {

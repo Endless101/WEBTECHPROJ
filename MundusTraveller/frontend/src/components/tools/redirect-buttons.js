@@ -1,7 +1,9 @@
+/* React imports */
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
-import Logout from "../pages/Logout"
+/* Tool imports */
+import Logout from "./Logout"
 
 export default class RedirectButtons extends Component {
     constructor(props){
