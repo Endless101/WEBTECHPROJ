@@ -21,7 +21,6 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = ('review','country')
 
 
-
 class UpdateReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = UpdateReviewModel

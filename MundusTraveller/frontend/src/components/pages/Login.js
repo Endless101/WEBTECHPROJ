@@ -4,7 +4,7 @@ import { Button } from "@material-ui/core"
 import { Link } from "react-router-dom"
 import { Grid } from "@material-ui/core"
 import Typography from "@material-ui/core/Typography";
-
+import RedirectButtons from '../tools/redirect-buttons';
 
 export default class Login extends Component {
     constructor(props) {
@@ -44,30 +44,7 @@ export default class Login extends Component {
             </Typography>
           </Grid>
           <Grid item xs={4} align="right">
-            <Button
-              variant="contained"
-              color="primary"
-              to={"/"}
-              component={Link}
-            >
-              Home
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              to={"/profile"}
-              component={Link}
-            >
-              Profile
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              to={"/register"}
-              component={Link}
-            >
-              Register
-            </Button>
+            <RedirectButtons page="login" />
           </Grid>
           </Grid>
           <br></br>

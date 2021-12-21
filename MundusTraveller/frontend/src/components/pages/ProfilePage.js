@@ -1,20 +1,11 @@
 import React, { Component, useState } from "react";
-//import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Textfield from "@material-ui/core/TextField";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
-import { Link, useHistory } from "react-router-dom";
-import Radio from "@material-ui/core/Radio";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { Button } from "@material-ui/core";
 import axios from "axios";
 import LandList from "./LandList";
 import ReviewList from "./ReviewList";
 import Review from "./Review";
-import Logout from "./Logout";
+import RedirectButtons from '../tools/redirect-buttons';
 
 export default class ProfilePage extends Component {
   constructor(props) {
@@ -24,27 +15,9 @@ export default class ProfilePage extends Component {
     };
   }
 
-  convertOneReview = (elementFromList) => {
-    return (
-      <div>
-        <Grid container spacing={1}>
-          <Grid item xs={12} align="center">
-            <Typography component="h6" variant="h6">
-              Review of {elementFromList.Place}
-            </Typography>
-            <Textfield
-              multiline
-              maxRows={10}
-              variant="standard"
-              defaultValue=""
-              fullWidth="true"
-            />
-          </Grid>
-        </Grid>
-      </div>
-    );
-  };
-
+  /* 
+    Fetches the email from the currently logged-in user and stores it in the class-state
+  */
   getCurrentEmail = () => {
     const [coordinates, setCoordinatesFromApi] = useState([]);
     React.useEffect(() => {
@@ -63,7 +36,10 @@ export default class ProfilePage extends Component {
     }, [coordinates.length]);
     return <div></div>;
   };
-
+  /* 
+    Renders the Profile page of the currently logged-in user,
+    showing the user's landcollection and the reviews that he has written
+  */
   render() {
     return (
       <body className="primary">
@@ -75,40 +51,8 @@ export default class ProfilePage extends Component {
             </Typography>
           </Grid>
           <Grid item xs={5} align="center">
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/"}
-            component={Link}
-          >
-            Home
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/profile/info"}
-            component={Link}
-          >
-            Profile Info
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/register"}
-            component={Link}
-          >
-            Register
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/login"}
-            component={Link}
-          >
-            Log in
-          </Button>
-          <Logout/>
-        </Grid>
+            <RedirectButtons page="profile" />
+          </Grid>
           <Grid item xs={6} align="center">
             <form
               id="addCountryForm"

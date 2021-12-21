@@ -3,6 +3,7 @@ import axios from "axios";
 import { Grid, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
+import RedirectButtons from '../tools/redirect-buttons';
 
 export default class CreateUser extends Component {
     constructor(props) {
@@ -70,31 +71,8 @@ render () {
             </Typography>
           </Grid>
           <Grid item xs={4} align="right">
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/"}
-            component={Link}
-          >
-            Home
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/profile"}
-            component={Link}
-          >
-            Profile
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/login"}
-            component={Link}
-          >
-            Log in
-          </Button>
-        </Grid>
+            <RedirectButtons page="register" />
+          </Grid>
         </Grid>
         <br></br>
         <Grid container spacing={1}>

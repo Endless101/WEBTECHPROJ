@@ -13,7 +13,7 @@ import { FormHelperText } from "@material-ui/core";
 import AddSearch from "../tools/SearchBar";
 import { FormControl } from "@material-ui/core";
 import Logout from "./Logout"
-
+import RedirectButtons from '../tools/redirect-buttons';
 
 
 const MAPBOX_TOKEN =
@@ -92,31 +92,7 @@ export default class AddMap extends Component {
           </Typography>
         </Grid>
         <Grid item xs={4} align="center">
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/profile"}
-            component={Link}
-          >
-            Profile
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/register"}
-            component={Link}
-          >
-            Register
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/login"}
-            component={Link}
-          >
-            Log in
-          </Button>
-          <Logout/>
+          <RedirectButtons page="home" />
         </Grid>
         <Grid item xs={4} align="left">
         <AddSearch/>

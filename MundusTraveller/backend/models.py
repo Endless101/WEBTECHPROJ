@@ -12,7 +12,6 @@ class CreateUserModel(models.Model):
     DOB = models.CharField(max_length=200,default=None)
 
 
-
 class Login(models.Model):
     email = models.EmailField(default=None)
     password = models.CharField(max_length=200, default=None)
@@ -36,6 +35,12 @@ class LikeModel(models.Model):
     writer = models.CharField(max_length=200)
     review = models.CharField(max_length=500)
 
+
+# A model that stores an email, the name of a country and a score.
+#
+# This links a user (via 'email') to a rating he has given to a country.
+#
+# This way each element the user adds to his collection is stored and retrievable.
 class CountryRatingModel(models.Model):
     email = models.EmailField(default=None)
     countryname = models.CharField(max_length=200, default=None)
