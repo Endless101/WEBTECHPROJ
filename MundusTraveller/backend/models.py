@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.fields import EmailField
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class CreateUserModel(models.Model):
@@ -22,7 +21,6 @@ class ReviewModel(models.Model):
     email = models.EmailField(default=None)
     username = models.CharField(max_length=200)
     review = models.CharField(max_length=500)
-    rating = models.CharField(max_length=200)
     country = models.CharField(max_length=200)
     likes = models.IntegerField(default=0)
 

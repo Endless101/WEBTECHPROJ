@@ -13,8 +13,6 @@ export default class Logout extends Component {
       if (res.status == "200")
         window.location.replace("http://localhost:8000/login");
     });
-    //window.location.href ="http://localhost:8000/logout/"
-    //window.location.replace("http://localhost:8000/login");
   }
 
   render() {

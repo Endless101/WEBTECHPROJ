@@ -9,7 +9,6 @@ export default class CreateUser extends Component {
         super(props)
         this.state = {
             errors: [{}],
-            inputs: [{}]
         }
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
@@ -43,7 +42,6 @@ export default class CreateUser extends Component {
               console.log(res.data.UserInfo)
               this.setState({
                   errors : new Array(res.data.UserInfo.errors),
-                  inputs : new Array(res.data.UserInfo.inputs) 
               },
               ()=>console.log(this.state))
           }

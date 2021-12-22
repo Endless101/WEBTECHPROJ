@@ -1,60 +1,26 @@
-#from _typeshed import Self
-from django.db.models.fields import EmailField
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework import generics, serializers, status
 from .serializers import CreateUserSerializer, LikeSerializer, LoginSerializer, ReviewSerializer, UpdateReviewSerializer, CountryRatingSerializer
 from .models import CreateUserModel, LikeModel, ReviewModel, CountryRatingModel
-from rest_framework.views import APIView
 from django.http import HttpResponseRedirect
-from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.sessions.models import Session
-from django.contrib.sessions.backends.db import SessionStore
-from django.utils.decorators import method_decorator
 from django.http import JsonResponse
 import json
-import os
+
 
 with open("frontend/src/data/europe_countries.json") as countries:
     europe_countries = json.load(countries)
 
-def prettyprint(obj):
-    print('\n')
-    print(obj)
-    print('\n')
+
 
 # Create your views here.
 def main(request):
     return HttpResponse("<h1>Hello</h1>")
-#class CreateUserView(generics.ListCreateAPIView):
-    
-   
- #   def post(self, request,format=None):
-  #      if not self.request.session.exists(self.request.session.session_key):
-   #         self.request.session.create()
-        
-    #    serializer = self.serializer_class(data=request.data)
-
-     #   if serializer.is_valid():
-      #     firstname = serializer.data['firstname']
-       #    lastname = serializer.data['lastname']
-        #   password = serializer.data['password']
-         #  email = serializer.data['email']
-          # DOB = serializer.data['DOB']
-           #createuser = CreateUserModel(firstname=firstname, lastname=lastname,password=password,email=email)
-           #createuser.save()
-           #return HttpResponseRedirect('/succes/')
-
 
 
 
 def postCreateUserModel(request):
-    inputs = {}
     errors = {}
-    prettyprint(request.POST)
-    queryset = CreateUserModel.objects.all()
     serializer_class = CreateUserSerializer
     serializer = serializer_class(data=request.POST)
         
@@ -68,9 +34,7 @@ def postCreateUserModel(request):
         confirmPassword = serializer.data['confirmPassword']
         email = serializer.data['email']
         DOB = serializer.data['DOB']
-        inputs['firstname'] = firstname
-        inputs['lastname'] = lastname
-        
+
 
         if len(username) < 6:
             errors['username'] = "Username needs to be atleast 6 characters long"
@@ -93,7 +57,6 @@ def postCreateUserModel(request):
             data = {
                 'UserInfo': {
                     'errors': errors,
-                    'inputs': inputs
                 }
            }
             return JsonResponse(data,status=200)
@@ -112,7 +75,7 @@ def postCreateUserModel(request):
                  'DOB': DOB,
              }
             return JsonResponse(data)
-    else: return HttpResponseRedirect('HTTP_REFERER')
+    else: return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
              
 
 
@@ -124,8 +87,11 @@ def postCreateUserModel(request):
 def postLogin(request):
     errors = {}
     serializer_class = LoginSerializer
+
     if not request.session.exists(request.session.session_key):
         request.session.create()
+
+        
     if request.method == 'POST':
         serializer = serializer_class(data=request.POST)
         if serializer.is_valid():
@@ -141,10 +107,12 @@ def postLogin(request):
                 request.session['email'] = postemail
                 request.session['username'] = objusername
 
-                prettyprint(request.session['email'])
+            
                 return HttpResponseRedirect('../profile')
-            else: return HttpResponseRedirect('HTTP_REFERER')
-        else: HttpResponseRedirect('HTTP_REFERER')
+            else: return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        else: HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
     elif request.method == 'GET':
         data = request.GET
         email = data['email']
@@ -163,15 +131,14 @@ def postReview(request):
         session = request.session
         serializer_class = ReviewSerializer
         serializer = serializer_class(data=request.POST)
-        prettyprint(session) 
-    
+       
         if serializer.is_valid():
             review_data = serializer.data['review']
             review_country = serializer.data['country']
             review_email = session['email']
             review_user = session['username']
             review = ReviewModel(review=review_data, email=review_email, username=review_user, country=review_country)
-            prettyprint(review.email)
+           
             review.save()
             return HttpResponse(status=201)
         else: 
@@ -186,7 +153,6 @@ def postReview(request):
                                         'username': e.username,
                                         'email': e.email,
                                         'country': e.country,
-                                        'rating': e.rating,
                                         'likes': e.likes}
             idx = idx + 1
         data = { 
@@ -205,13 +171,11 @@ def postReview(request):
                 obj.review = newContent
                 obj.save()
                 return HttpResponse(status=200)
-            else: return HttpResponseRedirect('HTTP_REFERER')
+            else: return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     elif request.method == 'DELETE':
-        prettyprint(request.method)
-
+    
         data = eval(request.body.decode())
-        prettyprint(data['review'])
-
+      
         
         to_be_deleted = data['review'][1:]
         obj = ReviewModel.objects.get(review = to_be_deleted)
@@ -220,7 +184,6 @@ def postReview(request):
 
 
 def updateReview(request):
-    prettyprint(request.method)
     data = eval(request.body.decode())
     serializer_class = UpdateReviewSerializer
     if request.method == 'PUT':
@@ -236,10 +199,7 @@ def updateReview(request):
 def handleLogout(request):
     if request.method == 'GET':
         if request.session.exists(request.session.session_key):
-            prettyprint(request.session.exists(request.session.session_key))
-           # del request.session['email']
             request.session.delete()
-            prettyprint(request.session.exists(request.session.session_key))
             return HttpResponse(status=200)
 
 
@@ -250,12 +210,10 @@ def handleLikes(request):
         data= eval(request.body)
         serializer = serializer_class(data=data)
         if serializer.is_valid():
-            #prettyprint(serializer.data)
             currUser = request.session['email']
             writer = serializer.data['writer']
             review = serializer.data['review']
             def amountOfLikes(): return len(LikeModel.objects.filter(liker=currUser,writer=writer,review=review))
-           # amount_of_likes = len(obj())
             if(amountOfLikes() == 0):
                 Like = LikeModel(liker=currUser,writer=writer,review=review)
                 Like.save()
@@ -289,7 +247,6 @@ def postAddCountry(request):
         session = request.session
         serializer_class = CountryRatingSerializer
         serializer = serializer_class(data=request.POST)
-        prettyprint(europe_countries[0])
 
 
         if serializer.is_valid():
@@ -320,7 +277,6 @@ def getCountryList(request):
     countryQueryset = CountryRatingModel.objects.filter(email=useremail)
     for obj in countryQueryset:
         countryList.extend([obj.countryname, obj.countryscore])
-    prettyprint(countryList)
     return JsonResponse(countryList, status=status.HTTP_200_OK, safe=False)
 
 def getUserInfo(request):

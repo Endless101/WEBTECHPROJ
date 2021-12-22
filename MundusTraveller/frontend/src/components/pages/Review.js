@@ -8,11 +8,11 @@ export default class Review extends Component {
         this.state = {
           errors: [{}],
       }
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        this.handleReviewSubmit = this.handleReviewSubmit.bind(this);
     }
 
   
-    handleFormSubmit(event, requestType){
+    handleReviewSubmit(event, requestType){
         //event.preventDefault();
         const country = document.getElementById("country").value
         const review = document.getElementById("review").value
@@ -52,7 +52,7 @@ export default class Review extends Component {
                 <label> Country: </label> <input id="country" type="text"></input> <br></br>
                 <label> Review: </label> <br></br>
                 <textarea name="review" id="review" type="text" cols="92" rows="15" placeholder={this.props.text}></textarea><br></br>
-                <input type="submit" value="Post" onClick={this.handleFormSubmit}/>
+                <input type="submit" value="Post" onClick={this.handleReviewSubmit}/>
                 
                 
                 </div>

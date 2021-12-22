@@ -1,26 +1,16 @@
 import React, {Component} from "react";
-import { Rating } from "react-simple-star-rating"
 import axios from "axios";
-import Review from "./Review";
 
 
 export default class ReviewList extends Component {
     constructor(props) {
         super(props)
-        this.handleLike = this.handleLike.bind(this)
         this.deleteReview = this.deleteReview.bind(this)
         this.filterReviews = this.filterReviews.bind(this)
-        this.dostuff = this.dostuff.bind(this)
         this.handleUpdate = this.handleUpdate.bind(this)
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.handleRating = this.handleRating.bind(this)
-        this.data = []
         this.state = {
             data: [],
-            loaded: false,
-            placeholder: "Loading"
           };
-        this.reviewstate = {name: "placeholder", rate: 0};
     }
     componentDidMount() {
         fetch("../backend/post")
@@ -31,14 +21,6 @@ export default class ReviewList extends Component {
     () => console.log(this.state.data)))
         
 }
-
-    dostuff() {
-        console.log("hehe")
-    }
-    
-    handleLike(){
-        console.log("hehe")
-    }
 
     handleUpdate(event) {
         event.target.value
@@ -78,38 +60,6 @@ export default class ReviewList extends Component {
 
     }
 
-     
-    handleRating(rate) {
-        this.reviewstate.rate = rate
-        console.log(this.reviewstate.rate)
-    }
-
-    handleFormSubmit(event, requestType){
-        //event.preventDefault();
-        console.log(requestType)
-       
-        const review = document.getElementById("review").value
-        const rating = this.reviewstate.rate
-        const params = new URLSearchParams()
-        params.append('review',review)
-        params.append('rating', rating.toString())
-        console.log(review)
-         axios.post("http://localhost:8000/backend/post/", params, {
-            headers: {
-                'Content-type':  'application/x-www-form-urlencoded'
-            }
-        }
-        )
-        .then(function (response) {
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-        
-    
-         
-     };
 
 
      deleteReview(event) {
@@ -199,14 +149,5 @@ export default class ReviewList extends Component {
             </div>
 
         )
-            /*<div>   
-                <label>Write your review : </label><br></br>
-                <textarea name="review" id="review" type="text" cols="92" rows="15"></textarea><br></br>
-                <Rating name="rating" onClick={this.handleRating}/><br></br>
-                <input type="submit" value="Post" onClick={this.handleFormSubmit}/>
-                
-                
-            </div>*/
-        
     }
 }
