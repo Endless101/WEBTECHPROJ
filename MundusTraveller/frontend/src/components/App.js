@@ -34,11 +34,6 @@ export default class App extends Component {
                 <Route path="/profile" component={ProfilePage} />
                 <Route path="/login"   component={Login}/>
                 <Route path="/register" component={CreateUser} />
-<<<<<<< HEAD
-=======
-                <Route path="/review" component={() =><ReviewList keys="taoufikcherroud@gmail.com" owner="true" filter="user"/>}/>
-                <Route path="/logout" component={Logout}/>
->>>>>>> master
                 <Route path="/country/:key" component={CountryPage} />
                 <Route path="/search" component={SearchBar} />
             </Switch>
