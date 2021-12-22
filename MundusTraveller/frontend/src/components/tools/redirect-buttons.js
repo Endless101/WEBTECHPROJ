@@ -10,7 +10,9 @@ export default class RedirectButtons extends Component {
         super(props);
         this.page = this.props.page
     }
-    
+    /* 
+        Given the current page, returns a list of pages for which a button must be created to redirect to
+    */
     getListOfRedirects = (currentPage) => {
         switch(currentPage) {
             case "home":
@@ -29,6 +31,9 @@ export default class RedirectButtons extends Component {
                 return ["home", "profile", "register", "login", ]   
         }
     }
+    /*
+        Returns the part of the url corresponding to the page
+    */
     getButtonLink = (page) => {
         switch(page) {
             case "home":
@@ -43,6 +48,9 @@ export default class RedirectButtons extends Component {
                 return "/profile/info"     
         }
     }
+    /*
+        Returns the HTML for a Button with the corresponding link
+    */
     makeOneButton = (page) => {
         if (page == "logout"){
             return <Logout />
@@ -59,6 +67,9 @@ export default class RedirectButtons extends Component {
             );
         }
     }
+    /*
+        A function to get all the neccesary buttons for the current page
+    */
     makeButtons = () => {
         const listOfRedirects = this.getListOfRedirects(this.page)
         const convertedList = listOfRedirects.map(x => this.makeOneButton(x))
