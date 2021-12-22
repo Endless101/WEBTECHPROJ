@@ -9,9 +9,9 @@ export default class Logout extends Component {
   }
 
   handleLogout() {
-    axios.get("http://localhost:8000/backend/logout/").then((res) => {
+    axios.get("/backend/logout/").then((res) => {
       if (res.status == "200")
-        window.location.replace("http://localhost:8000/login");
+        window.location.replace("../login");
     });
   }
 

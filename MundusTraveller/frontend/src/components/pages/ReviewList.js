@@ -17,8 +17,7 @@ export default class ReviewList extends Component {
         .then(response => response.json())
         .then(data =>this.setState({
             data: data
-    },
-    () => console.log(this.state.data)))
+    },))
         
 }
 
@@ -27,7 +26,6 @@ export default class ReviewList extends Component {
         const id = event.target.parentNode.id
         const el = document.getElementById(id)
         const oldContent = el.textContent.substring(el.textContent.indexOf(":") + 2, el.textContent.length)
-        console.log(oldContent)
         const div = document.createElement("div")
         const newEl = document.createElement("textarea")
         const updateButton = document.createElement("input")
@@ -35,12 +33,10 @@ export default class ReviewList extends Component {
         updateButton.value = "Update"
         updateButton.onclick = function(event) { 
            const newContent = event.target.parentNode.children[0].value
-           console.log("tishiertedoen")
-           console.log(event.target.parentNode.children[0].value)
            const params = new URLSearchParams
            params.append('oldContent', oldContent)
            params.append('newContent', newContent)
-           axios.put("http://localhost:8000/backend/post/",{
+           axios.put("/backend/post/",{
                "oldContent": oldContent,
                "newContent": newContent
            }, {
@@ -65,8 +61,7 @@ export default class ReviewList extends Component {
      deleteReview(event) {
         const el = event.target.parentNode
         const review = el.textContent.substring(el.textContent.indexOf(":") + 1, el.textContent.length)
-        console.log(review)
-        axios.delete("http://localhost:8000/backend/post/", {
+        axios.delete("/backend/post/", {
            data:  {
             review:review
         }
@@ -109,7 +104,6 @@ export default class ReviewList extends Component {
 
     render() {
         var arr = this.filterReviews()
-        console.log(arr)
 
         return (
             <div>
@@ -124,7 +118,7 @@ export default class ReviewList extends Component {
                             )
                         else return(<li key={review.id} id={review.id} >{review.user}: {review.propss}
                            <label> Amount of Likes: {review.likes} <button onClick={() => {
-                               axios.post("http://localhost:8000/backend/likes/", {
+                               axios.post("/backend/likes/", {
                                     writer: review.user,
                                     review: review.propss
                                },

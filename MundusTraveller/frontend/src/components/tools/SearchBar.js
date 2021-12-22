@@ -17,7 +17,7 @@ export default class AddSearch extends Component {
     params.append("username", username);
     axios
       .get(
-        "http://localhost:8000/backend/search/",
+        "/backend/search/",
         {
           params: params,
         },
@@ -29,10 +29,9 @@ export default class AddSearch extends Component {
       )
       .then((res) => {
         if (res.status == "200") {
-          window.location.replace(`http://localhost:8000/profile/${username}`);
+          window.location.replace(`/profile/${username}`);
         }
         if (res.status == "201") {
-          console.log(res.data);
           this.setState({
             errors: new Array(res.data),
           });

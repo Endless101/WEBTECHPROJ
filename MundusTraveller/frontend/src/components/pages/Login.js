@@ -27,7 +27,6 @@ export default class Login extends Component {
             this.setState({
                 errors : new Array(res.data)
             })
-            console.log(this.state)
         })
     }
     

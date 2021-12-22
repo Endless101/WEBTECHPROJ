@@ -32,21 +32,19 @@ export default class CreateUser extends Component {
       params.append('confirmPassword', confirmPassword)
       params.append('email',email)
       params.append('DOB',DOB)
-      axios.post("http://localhost:8000/backend/add/", params, {
+      axios.post("/backend/add/", params, {
           headers: {
             'Content-type':  'application/x-www-form-urlencoded'
           }
       })
       .then(res => {
           if(res.status == "200") {
-              console.log(res.data.UserInfo)
               this.setState({
                   errors : new Array(res.data.UserInfo.errors),
-              },
-              ()=>console.log(this.state))
+              })
           }
           else if(res.status == "201") {
-            window.location.replace("http://localhost:8000/login")
+            window.location.replace("../login")
           }
 
       })

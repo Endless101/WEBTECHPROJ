@@ -20,8 +20,8 @@ export default class Review extends Component {
         params.append('country', country)
         params.append('review',review)
     
-        console.log(review)
-         axios.post("http://localhost:8000/backend/post/", params, {
+        
+         axios.post("/backend/post/", params, {
             headers: {
                 'Content-type':  'application/x-www-form-urlencoded'
             }
