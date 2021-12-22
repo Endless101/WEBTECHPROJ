@@ -14,8 +14,12 @@ export default class CreateUser extends Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
-
-    handleFormSubmit = (event, requestType) => {
+    /**
+     * Takes all the info from our form and send an AJAX post request with axios to the server
+     * When a response is received we will either redirect after a 201 code or display error messages after 200 code
+     * @param {*} event 
+     */
+    handleFormSubmit = (event) => {
       event.preventDefault()
       const params = new URLSearchParams
       const form = event.target.parentNode.parentNode
@@ -53,7 +57,10 @@ export default class CreateUser extends Component {
       
 
     };
-
+/**
+ * 
+ * @returns HTML form for registration
+ */
 
 render () {
     return (

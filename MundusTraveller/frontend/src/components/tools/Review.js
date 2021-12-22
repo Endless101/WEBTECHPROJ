@@ -12,9 +12,12 @@ export default class Review extends Component {
         this.handleReviewSubmit = this.handleReviewSubmit.bind(this);
     }
 
-  
-    handleReviewSubmit(event, requestType){
-        //event.preventDefault();
+  /**
+   * Getting all the information from the textarea and input field and sending them to the server via an AJAX post request.
+   * When the post is successful we reload the page or else we will display the error messages returned from the server
+   * @param {*} event 
+   */
+    handleReviewSubmit(event){
         const country = document.getElementById("country").value
         const review = document.getElementById("review").value
         const params = new URLSearchParams()
@@ -46,7 +49,10 @@ export default class Review extends Component {
           });
           /**/
         }
-        
+        /**
+         * 
+         * @returns HTML div with an input field for writing the country and textarea for writing the review along with a submit button.
+         */
           render() {
          return( <div> 
                 {this.state.errors[0].review} <br></br>  

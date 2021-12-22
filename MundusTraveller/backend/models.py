@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
+
+# Attributes for user table
 class CreateUserModel(models.Model):
     firstname = models.CharField(max_length=200, default=None)
     lastname = models.CharField(max_length=200, default=None)
@@ -10,12 +12,12 @@ class CreateUserModel(models.Model):
     email = models.EmailField(default=None)
     DOB = models.CharField(max_length=200,default=None)
 
-
+# Model not saved but mainly used for the serializer and the is_valid function
 class Login(models.Model):
     email = models.EmailField(default=None)
     password = models.CharField(max_length=200, default=None)
 
-
+# Attributes for review table
 class ReviewModel(models.Model):
     email = models.EmailField(default=None)
     username = models.CharField(max_length=200)
@@ -24,10 +26,13 @@ class ReviewModel(models.Model):
     likes = models.IntegerField(default=0)
 
 
+# Model not saved but mainly used for the serializer and the is_valid function
 class UpdateReviewModel(models.Model):
     oldContent = models.CharField(max_length=500)
     newContent = models.CharField(max_length=500)
 
+
+# Attributes for Like table
 class LikeModel(models.Model):
     liker = models.CharField(max_length=200)
     writer = models.CharField(max_length=200)

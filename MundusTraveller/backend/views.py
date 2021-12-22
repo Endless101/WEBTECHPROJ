@@ -18,6 +18,8 @@ def main(request):
     return HttpResponse("<h1>Hello</h1>")
 
 
+# A function that will handle a post request for registering a user 
+# if everything is valid then we create a new entry. Otherwise we send back error messages to be displayed
 
 def postCreateUserModel(request):
     errors = {}
@@ -25,6 +27,7 @@ def postCreateUserModel(request):
     serializer = serializer_class(data=request.POST)
         
     
+# Form validation
 
     if  serializer.is_valid():
         firstname = serializer.data['firstname']
@@ -61,20 +64,13 @@ def postCreateUserModel(request):
            }
             return JsonResponse(data,status=200)
 
+        # Saving the new user
 
         obj = CreateUserModel.objects.filter(email=email , username=username)
         if(len(obj) == 0): 
             createuser = CreateUserModel(firstname=firstname, lastname=lastname,username=username,password=password,email=email, DOB=DOB)
             createuser.save()
             return HttpResponse(status=201)
-        else:
-            data = {
-                 'firstname': firstname,
-                 'lastname': lastname,
-                 'username': username,
-                 'DOB': DOB,
-             }
-            return JsonResponse(data)
     else: return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
              
 
@@ -82,36 +78,46 @@ def postCreateUserModel(request):
 
            
            
-
+# Function that will handle the login functionality
+# Will make a new session for the user
+# Also handles AJAX get requests to check if the email is already registered
 
 def postLogin(request):
     errors = {}
     serializer_class = LoginSerializer
 
+    # Making a new session for our user
+
     if not request.session.exists(request.session.session_key):
         request.session.create()
 
-        
+    # When a post request is received and we need to validate the data received
     if request.method == 'POST':
         serializer = serializer_class(data=request.POST)
         if serializer.is_valid():
             postemail = serializer.data['email']
             postpassword = serializer.data['password']
+
+            # Check if our email is registered or not.
             try:
                 obj = CreateUserModel.objects.get(email=postemail)
             except ObjectDoesNotExist:
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             objpassword = obj.password
             objusername = obj.username
+
+            # Password check
+
             if(postpassword == objpassword):
                 request.session['email'] = postemail
                 request.session['username'] = objusername
-
-            
                 return HttpResponseRedirect('../profile')
+
             else: return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
         else: HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+    # Axios get request send from the client-side to see if the email is registered or not.
 
     elif request.method == 'GET':
         data = request.GET
@@ -125,12 +131,19 @@ def postLogin(request):
             return JsonResponse(errors)
 
 
+# Function that will handle all opertations on reviews which includes listing, creating, editing and deleting.
+
 def postReview(request):
     errors = {}
+
+    # Post requests will be handled in the first if branch
+
     if request.method == 'POST':
         session = request.session
         serializer_class = ReviewSerializer
         serializer = serializer_class(data=request.POST)
+
+        # Check for validity and save to our table
        
         if serializer.is_valid():
             review_data = serializer.data['review']
@@ -144,6 +157,9 @@ def postReview(request):
         else: 
                 errors['review'] = "Please enter a country and a valid review"
                 return JsonResponse(errors)
+
+    # Sends all the reviews to the client-side after receiving a get request.
+
     elif request.method == 'GET':
         data = ReviewModel.objects.all()
         ls = {}
@@ -160,6 +176,9 @@ def postReview(request):
         
         }
         return JsonResponse(ls)
+
+    # Third branch of the if handles put requests where the incoming review will be updated with the new review
+
     elif request.method == 'PUT':
             data = eval(request.body.decode())
             serializer_class = UpdateReviewSerializer
@@ -172,6 +191,9 @@ def postReview(request):
                 obj.save()
                 return HttpResponse(status=200)
             else: return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    # Handles delete requests and simply deletes the given review from the database
+
     elif request.method == 'DELETE':
     
         data = eval(request.body.decode())
@@ -182,19 +204,7 @@ def postReview(request):
         obj.delete()
         return HttpResponse(status=200)
 
-
-def updateReview(request):
-    data = eval(request.body.decode())
-    serializer_class = UpdateReviewSerializer
-    if request.method == 'PUT':
-        serializer = serializer_class(data=data)
-        if serializer.is_valid():
-            oldContent = serializer.data['oldContent']
-            newContent = serializer.data['newContent']
-            obj = ReviewModel.objects.get(review=oldContent)
-            obj.review = newContent
-            obj.save()
-
+# Ends the session of a user.
 
 def handleLogout(request):
     if request.method == 'GET':
@@ -202,10 +212,13 @@ def handleLogout(request):
             request.session.delete()
             return HttpResponse(status=200)
 
-
+# Handles the likes of a review
 
 def handleLikes(request):
     serializer_class = LikeSerializer
+    
+    # Validate the data
+
     if request.method == 'POST':
         data= eval(request.body)
         serializer = serializer_class(data=data)
@@ -213,7 +226,13 @@ def handleLikes(request):
             currUser = request.session['email']
             writer = serializer.data['writer']
             review = serializer.data['review']
+
+            # Check if review already liked
+
             def amountOfLikes(): return len(LikeModel.objects.filter(liker=currUser,writer=writer,review=review))
+
+             # If not add a new entry and calculate new amount of likes for review and update the amount of likes for that specific review
+
             if(amountOfLikes() == 0):
                 Like = LikeModel(liker=currUser,writer=writer,review=review)
                 Like.save()
@@ -222,6 +241,9 @@ def handleLikes(request):
                 review_model.save()
                 return HttpResponse(status=200)
             else: return HttpResponse(status=304)
+
+# Checks if the user is in the database via an AJAX get request
+# Returns error message to the client-side if not found. 
 
 def getUser(request):
     errors = {}

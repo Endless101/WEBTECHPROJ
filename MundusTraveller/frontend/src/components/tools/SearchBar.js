@@ -10,7 +10,12 @@ export default class AddSearch extends Component {
     };
     this._getUsernameFromDatabase = this._getUsernameFromDatabase.bind(this);
   }
-
+  /**
+   * Sends an AJAX get request to the server to see if a username is registered in the database.
+   * Will redirect to the user's profile on a successful find.
+   * Displays error message on fail
+   * @param {*} event 
+   */
   _getUsernameFromDatabase = (event) => {
     const username = document.getElementById("userID").value;
     const params = new URLSearchParams();

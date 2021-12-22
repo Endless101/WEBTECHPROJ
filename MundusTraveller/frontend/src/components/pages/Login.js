@@ -13,6 +13,10 @@ export default class Login extends Component {
             errors : [{}]
         }
     }
+    /**
+     * Sends an AJAX get request to the server with axios to check the validity of the given email
+     * @param {*} event 
+     */
 
     checkEmail(event){
         const params = new URLSearchParams
@@ -29,6 +33,10 @@ export default class Login extends Component {
         })
     }
     
+    /**
+     * 
+     * @returns HTML form for loggin in
+     */
 
     render() {
         return (

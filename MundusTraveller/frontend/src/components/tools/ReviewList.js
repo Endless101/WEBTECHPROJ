@@ -13,6 +13,9 @@ export default class ReviewList extends Component {
             data: [],
           };
     }
+    /**
+     * Fetches all the reviews from the backend via an AJAX get request.
+     */
     componentDidMount() {
         fetch("../backend/post")
         .then(response => response.json())
@@ -22,6 +25,11 @@ export default class ReviewList extends Component {
         
 }
 
+    /**
+     * Replaces the current review list item by a textarea and an update button in a div. The textarea will include the old review and there will
+     * be an update button right next to it. The button will send an AJAX put request to the server when pressed. Reloads the page on a successful update.
+     * @param {*} event 
+     */
     handleUpdate(event) {
         event.target.value
         const id = event.target.parentNode.id
@@ -58,7 +66,10 @@ export default class ReviewList extends Component {
     }
 
 
-
+    /**
+     * Sends an AJAX delete request to the server and will delete the list item from the unordered list.
+     * @param {*} event 
+     */
      deleteReview(event) {
         const el = event.target.parentNode
         const review = el.textContent.substring(el.textContent.indexOf(":") + 1, el.textContent.length)
@@ -75,6 +86,11 @@ export default class ReviewList extends Component {
         })
         event.target.parentNode.remove()
     }
+
+    /**
+     * Goes through all the fetched reviews with a simple for loop and will skip the ones that do not fulfill the condition and the ones that do
+     * @returns an array of filtered reviews based on the properties that where given.
+     */
     filterReviews() {
         var arr = []
         var idx = 0
@@ -102,7 +118,11 @@ export default class ReviewList extends Component {
         return arr
     }
 
-
+    /**
+     * Maps over the filtered reviews and adds buttons based on the owner property. Like button implements an anonymous function that sends an 
+     * AJAX post request when clicked upon.
+     * @returns Unordered list of all the correct reviews
+     */
     render() {
         var arr = this.filterReviews()
 

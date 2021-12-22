@@ -13,7 +13,9 @@ export default class CountryInfo extends Component {
       },
     };
   }
-
+ /**
+  * Will fetch current weather informtion from the OpenWeatherMap API
+  */
   componentDidMount() {
     const { country } = this.props;
     const countrycode = country.country_code;
