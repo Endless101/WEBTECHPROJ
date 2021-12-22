@@ -1,25 +1,19 @@
+/* React imports */
 import React, { Component, useState } from "react";
 import axios from "axios";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Textfield from "@material-ui/core/TextField";
+import { Grid, Typography } from "@material-ui/core";
 
 export default class LandList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       countryList: [],
-      reviewList: [
-        {
-          Place: "Belgium",
-          Review: "I think it do be good but not too good, its okay",
-        },
-        { Place: "Paris", Review: "Overrated, too many tourists but bootivol" },
-        { Place: "Austria", Review: "Yes very good" },
-      ],
     };
     this.user = this.props.user;
   }
+  /*
+    Given a countryname and a score, returns the HTML to render this element of the collection
+  */
   convertOneLand = (country, score) => {
     return (
       <div>
@@ -34,7 +28,9 @@ export default class LandList extends Component {
       </div>
     );
   };
-
+  /*
+    Fetches the list of countries from the user's collection from the database via the backend
+  */
   getListFromBackend = () => {
     const [coordinates, setCoordinatesFromApi] = useState([]);
     React.useEffect(() => {
@@ -52,7 +48,10 @@ export default class LandList extends Component {
         );
     }, [coordinates.length]);
   };
-
+  /*
+    After getting the collection from the database, iterates over this list to get convert
+    this data into HTML
+  */
   showLandList = () => {
     this.getListFromBackend();
     const ctryList = this.state.countryList;
@@ -62,6 +61,10 @@ export default class LandList extends Component {
     }
     return <div> {convertedList} </div>;
   };
+  /*
+    Renders the complete collection of countries from a user
+    This rendering is used in ProfilePage and in the OtherProfile (profile page of other user's)
+  */
   render() {
     return (
       <Grid item xs={12} align="center">

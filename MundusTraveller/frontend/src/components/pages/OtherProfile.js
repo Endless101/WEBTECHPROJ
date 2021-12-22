@@ -1,13 +1,11 @@
+/* React imports */
 import React, { Component, useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Textfield from "@material-ui/core/TextField";
-import { Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Grid, Typography } from "@material-ui/core";
 import axios from "axios";
-import LandList from "./LandList";
-import ReviewList from "./ReviewList";
-import Logout from "./Logout";
+/* Tool imports */
+import LandList from "../tools/LandList";
+import ReviewList from "../tools/ReviewList";
+import RedirectButtons from '../tools/redirect-buttons';
 
 export default class OtherProfile extends Component {
   constructor(props) {
@@ -17,7 +15,9 @@ export default class OtherProfile extends Component {
     };
     this.user = this.props.match.params.user;
   }
-
+  /*
+    Fetches the email from the user which profile will be rendered
+  */
   getUserEmail = () => {
     const [coordinates, setCoordinatesFromApi] = useState([]);
     React.useEffect(() => {
@@ -36,52 +36,26 @@ export default class OtherProfile extends Component {
     }, [coordinates.length]);
     return <div></div>;
   };
+  /*
+    Renders the profile of any user in the database
 
+    Shows the user's landcollection and reviews
+  */
   render() {
     return (
       <body class="primary">
         <Grid container spacine={1}>
           <this.getUserEmail />
-          <Grid item xs={6} align="center">
+          <Grid item xs={4} align="center">
+          </Grid>
+          <Grid item xs={4} align="center">
             <Typography component="h2" variant="h2">
               {this.user}'s profile
             </Typography>
           </Grid>
-          <Grid item xs={6} align="right">
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/"}
-            component={Link}
-          >
-            Home
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/profile"}
-            component={Link}
-          >
-            Profile
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/register"}
-            component={Link}
-          >
-            Register
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/login"}
-            component={Link}
-          >
-            Log in
-          </Button>
-          <Logout/>
-        </Grid>
+          <Grid item xs={4} align="right">
+            <RedirectButtons page="otherprofile" />
+          </Grid>
           <Grid container spacine={1}>
             <Grid item xs={6} align="center">
               <LandList user={this.user} />

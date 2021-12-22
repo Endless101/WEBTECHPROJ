@@ -1,20 +1,21 @@
+/* React imports */
 import React, { Component, useState } from 'react';
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Textfield from "@material-ui/core/TextField";
-import { Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Grid, Typography } from "@material-ui/core";
 import axios from 'axios';
-import Logout from "./Logout"
+/* Tool imports */
+import RedirectButtons from '../tools/redirect-buttons';
 
-export default class ProfilePage extends Component {
+export default class ProfileInfo extends Component {
 constructor(props) {
     super(props);
     this.state = {
         userinfo : [],
     };
 }
-
+/*
+    Fetches a list with the personal information of the current user from the database
+    and stores it in 'userinfo'
+*/
 getListFromBackend = () => {
     const [coordinates, setCoordinatesFromApi] = useState([])
     React.useEffect(() => {
@@ -26,7 +27,10 @@ getListFromBackend = () => {
             })
     }, [coordinates.length])
 }
-
+/*
+    After getting the list with the personal information of the user,
+    returns the adapted HTML to display the information on screen
+*/
 getUserInfo = () => {
     this.getListFromBackend()
     const userinfo = this.state.userinfo
@@ -67,8 +71,9 @@ getUserInfo = () => {
         </div>
     )
 }
-
-
+/*
+    Renders the UserInfo page that displays the user's personal information
+*/
 render() {
     return (
         <body class="primary">
@@ -81,39 +86,7 @@ render() {
             </Typography>
         </Grid>
         <Grid item xs={4} align="center">
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/"}
-            component={Link}
-          >
-            Home
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/profile"}
-            component={Link}
-          >
-            Profile
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/register"}
-            component={Link}
-          >
-            Register
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            to={"/login"}
-            component={Link}
-          >
-            Log in
-          </Button>
-          <Logout/>
+          <RedirectButtons page="profile info" />
         </Grid>
         <Grid item xs={12} align="center">
             <this.getUserInfo />

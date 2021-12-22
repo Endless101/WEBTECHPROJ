@@ -1,5 +1,11 @@
+/* React imports */
 import React, {Component} from "react";
 import axios from "axios";
+<<<<<<< HEAD:MundusTraveller/frontend/src/components/pages/ReviewList.js
+=======
+/* Uhm I'm pretty sure this can be deleted but I'll leave it to you Taoufik */
+import Review from "./Review";
+>>>>>>> master:MundusTraveller/frontend/src/components/tools/ReviewList.js
 
 
 export default class ReviewList extends Component {

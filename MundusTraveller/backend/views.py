@@ -235,33 +235,40 @@ def getUser(request):
          return JsonResponse(errors,status=201, safe=False)
 
             
-            
-def checkCountryName(name):
+# This function checks whether a given countryname is a valid country in Europe.
+#
+# The names of all the possible countrynames is stored in de jsonfile 'europe_countries'.           
+def checkCountryName(countryname):
     for i in europe_countries:
-        if (i['name']==name):
+        if (i['name']==countryname):
             return True
     return False
 
+
+# Given a countryname and a countryscore, a new 'CountryRatingModel' is created by the currently logged-in user.
+#
+# This new element of the collection is stored in the database. 
 def postAddCountry(request):
     if request.method == 'POST':
         session = request.session
         serializer_class = CountryRatingSerializer
         serializer = serializer_class(data=request.POST)
 
-
         if serializer.is_valid():
-            print("serializer is valid")
             postcountry = serializer.data['countryname']
             if checkCountryName(postcountry):
                 postscore = serializer.data['countryscore']
                 useremail = session['email']
                 newRating = CountryRatingModel(email=useremail, countryname=postcountry, countryscore=postscore)
                 newRating.save()
-                print("rating added")
-        else: 
-            print("serializer not valid")
     return HttpResponseRedirect('http://localhost:8000/profile')
-    
+
+
+# Given the username of a user or the string "self" for the currently logged-in user,
+# the corresponding email of this user is returned.
+#
+# The username of a user has to be at least six charachters so there is no risk that
+# a user named 'self' can be mixed with the logged-in user.
 def searchUserEmail(request):
     user = request.GET.get('user')
     session = request.session
@@ -271,6 +278,11 @@ def searchUserEmail(request):
         usermodel= CreateUserModel.objects.get(username=user)
         return usermodel.email
 
+
+# Given a request with a certain username, the corresponding 'CountryRatingModel's 
+# that were stored by this user are being fetched from the database.
+#
+# A list of 'countryname, countryscore'-pairs are returned to the frontend.
 def getCountryList(request):
     useremail = searchUserEmail(request)
     countryList = []
@@ -279,6 +291,10 @@ def getCountryList(request):
         countryList.extend([obj.countryname, obj.countryscore])
     return JsonResponse(countryList, status=status.HTTP_200_OK, safe=False)
 
+
+# By taking the email from the currently active session the 'CreatUserModel' from the currently logged-in user is taken from database.
+# 
+# The personal info of the user, stored in this model, is then returned to the frontend
 def getUserInfo(request):
     if request.session.exists(request.session.session_key):
         session = request.session
@@ -294,6 +310,9 @@ def getUserInfo(request):
         userinfo = [firstname, lastname, username, email, DOB]
         return JsonResponse(userinfo, status=status.HTTP_200_OK, safe=False)
 
+# This function only calls 'searchUserEmail' to get the email of a user.
+# But this value is returned in a JsonReponse so that this function can be used to fetch the email
+# of a user from the frontend.
 def getUserEmail(request):
     useremail = searchUserEmail(request)
     return JsonResponse(useremail, status=status.HTTP_200_OK, safe=False)
