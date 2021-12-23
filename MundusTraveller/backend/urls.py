@@ -1,7 +1,7 @@
 from django.urls import path
 from backend import views
-from django.views.decorators.csrf import csrf_exempt
 
+# URLs
 urlpatterns = [
     path('home/', views.main),
     path('add/', views.postCreateUserModel),

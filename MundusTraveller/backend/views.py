@@ -145,7 +145,7 @@ def postReview(request):
 
         # Check for validity and save to our table
        
-        if serializer.is_valid():
+        if serializer.is_valid() and checkCountryName():
             review_data = serializer.data['review']
             review_country = serializer.data['country']
             review_email = session['email']
@@ -283,7 +283,7 @@ def postAddCountry(request):
                 useremail = session['email']
                 newRating = CountryRatingModel(email=useremail, countryname=postcountry, countryscore=postscore)
                 newRating.save()
-    return HttpResponseRedirect('http://localhost:8000/profile')
+    return HttpResponseRedirect('../profile')
 
 
 # Given the username of a user or the string "self" for the currently logged-in user,
